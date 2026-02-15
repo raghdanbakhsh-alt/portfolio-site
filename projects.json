@@ -1,0 +1,138 @@
+{
+  "projects": [
+    {
+      "id": "P-001",
+      "title_en": "Industrial Facility Upgrade",
+      "title_ar": "تطوير مرافق صناعية",
+      "category": "Industrial",
+      "client": "NBCC",
+      "location": "Jeddah",
+      "status": "Ongoing",
+      "dates": "2025–2026",
+      "summary_en": "Upgrading production/support facilities with scope control and stakeholder coordination.",
+      "summary_ar": "تطوير مرافق الإنتاج والدعم مع ضبط نطاق العمل وتنسيق الجهات.",
+      "scope_en": "Layout updates, coordination, BOQ support, and site follow-up.",
+      "scope_ar": "تحديث مخططات، تنسيق، دعم BOQ، متابعة موقع.",
+      "resp_en": "Prepared BOQ items, evaluated offers, coordinated site requirements and punch lists.",
+      "resp_ar": "تجهيز بنود BOQ، مقارنة عروض، تنسيق متطلبات الموقع وقائمة الملاحظات.",
+      "tools_en": "Revit, AutoCAD, Excel, Site inspections",
+      "tools_ar": "Revit، AutoCAD، Excel، زيارات موقع",
+      "tags": [
+        "BOQ",
+        "Procurement",
+        "Execution",
+        "Compliance"
+      ],
+      "featured": true,
+      "media": [
+        {
+          "type": "Image",
+          "title": "Before / After",
+          "url": "#"
+        },
+        {
+          "type": "PDF",
+          "title": "Scope Summary",
+          "url": "#"
+        },
+        {
+          "type": "Image",
+          "title": "Layout Snapshot",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "id": "P-002",
+      "title_en": "Office Fit-Out & Branding",
+      "title_ar": "تشطيبات مكاتب وهوية بصرية",
+      "category": "Interior",
+      "client": "NBCC",
+      "location": "Jeddah",
+      "status": "Completed",
+      "dates": "2024–2025",
+      "summary_en": "Executive office fit-out with functional layout and branding integration.",
+      "summary_ar": "تشطيب مكاتب تنفيذية بتوزيع عملي ودمج الهوية البصرية.",
+      "scope_en": "Space planning, finishes coordination, vendor follow-up.",
+      "scope_ar": "تخطيط مساحات، تنسيق تشطيبات، متابعة موردين.",
+      "resp_en": "Reviewed drawings, coordinated finishes, managed deliverables with contractors.",
+      "resp_ar": "مراجعة رسومات، تنسيق تشطيبات، إدارة مخرجات المقاولين.",
+      "tools_en": "AutoCAD, SketchUp, Excel",
+      "tools_ar": "AutoCAD، SketchUp، Excel",
+      "tags": [
+        "Fit-Out",
+        "Branding",
+        "Coordination"
+      ],
+      "featured": true,
+      "media": [
+        {
+          "type": "Image",
+          "title": "Concept",
+          "url": "#"
+        },
+        {
+          "type": "Image",
+          "title": "Details",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "id": "P-003",
+      "title_en": "HVAC Cooling Upgrade Study",
+      "title_ar": "دراسة ترقية تبريد (HVAC)",
+      "category": "HVAC",
+      "client": "Warehouse / Operations",
+      "location": "Makkah",
+      "status": "Ongoing",
+      "dates": "2025",
+      "summary_en": "Evaluation of cooling options to maintain operational temperature targets.",
+      "summary_ar": "تقييم حلول التبريد لتحقيق درجة حرارة تشغيلية مستهدفة.",
+      "scope_en": "Site survey, supplier alignment, technical clarifications, revised proposals.",
+      "scope_ar": "زيارة موقع، مواءمة المورد، استفسارات فنية، تحديث عروض.",
+      "resp_en": "Collected requirements, reviewed airflow/coverage, negotiated scope changes.",
+      "resp_ar": "جمع متطلبات، مراجعة تدفق الهواء والتغطية، تفاوض على تغييرات النطاق.",
+      "tools_en": "Excel, Site inspections, Vendor coordination",
+      "tools_ar": "Excel، زيارات موقع، تنسيق موردين",
+      "tags": [
+        "HVAC",
+        "Evaluation",
+        "Cost"
+      ],
+      "featured": false,
+      "media": [
+        {
+          "type": "PDF",
+          "title": "Technical Comparison",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "id": "P-004",
+      "title_en": "Fire Safety Scope Review",
+      "title_ar": "مراجعة نطاق السلامة من الحريق",
+      "category": "FireSafety",
+      "client": "Industrial Site",
+      "location": "Jeddah",
+      "status": "Concept",
+      "dates": "2025",
+      "summary_en": "Initial scope definition and compliance considerations for fire safety works.",
+      "summary_ar": "تحديد نطاق مبدئي واعتبارات مطابقة لأعمال السلامة من الحريق.",
+      "scope_en": "Define scope items, identify interfaces, prepare RFQ-ready list.",
+      "scope_ar": "تحديد بنود النطاق، تحديد الواجهات، تجهيز قائمة RFQ.",
+      "resp_en": "Drafted scope and clarified requirements with stakeholders.",
+      "resp_ar": "صياغة نطاق وتوضيح المتطلبات مع الجهات.",
+      "tools_en": "Excel, Code references, Site walkthroughs",
+      "tools_ar": "Excel، مراجع أكواد، جولات موقع",
+      "tags": [
+        "NFPA",
+        "Scope",
+        "RFQ"
+      ],
+      "featured": false,
+      "media": []
+    }
+  ]
+}

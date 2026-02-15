@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Portfolio website" />
+  <title>Portfolio | Raghdan</title>
+
+  <!--
+    This file contains the complete portfolio website generated for the user.
+    It is largely identical to the HTML delivered earlier, but with one
+    important difference: the project data is no longer hard‑coded inside
+    the script.  Instead, project information is loaded on demand from
+    a separate JSON file (projects.json) at runtime.  This makes it
+    simple to add, remove or modify projects without touching the HTML.
+    Simply edit projects.json in the same directory and the site will
+    automatically display the updated list, grouped by category.
+  -->
+  <style>
+    :root{
+      --bg:#0b0f17; --card:#101827; --muted:#94a3b8; --text:#e5e7eb;
+      --border:rgba(148,163,184,.18);
+      --accent:#60a5fa; --accent2:#22c55e; --danger:#ef4444;
+      --shadow: 0 16px 50px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(96,165,250,.25), transparent 55%),
+                  radial-gradient(900px 600px at 90% 5%, rgba(34,197,94,.18), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:10px 12px; border:1px solid var(--border);
+      border-radius:999px; background:rgba(255,255,255,.03);
+      color:var(--muted); font-size:13px;
+    }
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,23,.6);
+      border-bottom:1px solid var(--border);
+    }
+    .topbar-inner{display:flex; align-items:center; justify-content:space-between; gap:14px}
+    .brand{display:flex; align-items:center; gap:10px}
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(96,165,250,.9), rgba(34,197,94,.9));
+      box-shadow: 0 10px 30px rgba(96,165,250,.18);
+    }
+    .brand b{letter-spacing:.2px}
+    .nav{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .nav a{
+      padding:10px 12px; border-radius:12px;
+      border:1px solid transparent; color:var(--muted); font-weight:600; font-size:14px;
+    }
+    .nav a:hover{border-color:var(--border); color:var(--text); background:rgba(255,255,255,.02)}
+    .actions{display:flex; gap:10px; align-items:center}
+    .btn{
+      cursor:pointer; border:1px solid var(--border);
+      background:rgba(255,255,255,.03); color:var(--text);
+      padding:10px 12px; border-radius:12px;
+      font-weight:700; font-size:14px;
+      display:inline-flex; align-items:center; gap:10px;
+    }
+    .btn:hover{background:rgba(255,255,255,.06)}
+    .btn.primary{
+      border-color: rgba(96,165,250,.5);
+      background: linear-gradient(180deg, rgba(96,165,250,.22), rgba(96,165,250,.10));
+    }
+    .btn.success{
+      border-color: rgba(34,197,94,.5);
+      background: linear-gradient(180deg, rgba(34,197,94,.22), rgba(34,197,94,.10));
+    }
+    .btn.danger{
+      border-color: rgba(239,68,68,.45);
+      background: linear-gradient(180deg, rgba(239,68,68,.18), rgba(239,68,68,.08));
+    }
+    .hero{padding:36px 0 10px}
+    .hero-grid{
+      display:grid; grid-template-columns: 1.35fr .65fr; gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 880px){ .hero-grid{grid-template-columns: 1fr; } }
+    .card{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .card-inner{padding:22px}
+    .h1{
+      margin:0 0 10px 0; font-size: clamp(28px, 3.4vw, 44px);
+      line-height:1.1; letter-spacing:.2px;
+    }
+    .sub{color:var(--muted); font-size:15px; margin:0 0 18px 0}
+    .hero-cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .kpis{display:grid; grid-template-columns: repeat(2, 1fr); gap:12px}
+    .kpi{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.02);
+      border-radius:16px;
+      padding:14px;
+    }
+    .kpi b{font-size:20px}
+    .kpi span{display:block; color:var(--muted); font-size:13px; margin-top:4px}
+    section{padding:22px 0}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px; margin:6px 0 14px;
+    }
+    .section-title h2{margin:0; font-size:20px}
+    .section-title p{margin:0; color:var(--muted); font-size:13px}
+    .grid{
+      display:grid; gap:14px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 620px){ .grid{grid-template-columns: 1fr;} }
+    .tile{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius: 18px;
+      overflow:hidden;
+      transition: transform .16s ease, background .16s ease, border-color .16s ease;
+      cursor:pointer;
+    }
+    .tile:hover{transform: translateY(-2px); background: rgba(255,255,255,.045); border-color: rgba(96,165,250,.35)}
+    .thumb{
+      aspect-ratio: 16/9;
+      background:
+        radial-gradient(800px 300px at 20% 30%, rgba(96,165,250,.28), transparent 60%),
+        radial-gradient(900px 400px at 90% 20%, rgba(34,197,94,.22), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-bottom:1px solid var(--border);
+    }
+    .tile-body{padding:14px}
+    .meta{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:10px}
+    .tag{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      background: rgba(255,255,255,.02);
+    }
+    .tile h3{margin:0; font-size:15px}
+    .tile p{margin:8px 0 0; color:var(--muted); font-size:13px}
+    .filters{display:flex; gap:10px; flex-wrap:wrap}
+    select,input{
+      width:auto;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      outline:none;
+      font-weight:700;
+      font-size:13px;
+    }
+    input{min-width: 220px}
+    .two-col{
+      display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+    }
+    @media (max-width: 880px){ .two-col{grid-template-columns: 1fr;} }
+    .list{
+      display:grid; gap:12px;
+    }
+    .item{
+      border:1px solid var(--border);
+      border-radius: 16px;
+      padding:14px;
+      background: rgba(255,255,255,.02);
+    }
+    .item .top{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+    .item b{display:block}
+    .item small{color:var(--muted); font-weight:700}
+    .muted{color:var(--muted)}
+    .skills{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:10px
+    }
+    .skill{
+      border:1px solid var(--border);
+      padding:10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.02);
+      display:flex; gap:10px; align-items:center;
+    }
+    .dot{width:10px; height:10px; border-radius:99px; background:var(--accent)}
+    .dot.g{background:var(--accent2)}
+    .footer{
+      padding:26px 0 40px;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      margin-top:16px;
+    }
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+      display:none; align-items:center; justify-content:center;
+      padding:22px; z-index:999;
+    }
+    .modal{
+      width:min(920px, 100%);
+      border:1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(16,24,39,.92);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      max-height: 86vh;
+      display:flex; flex-direction:column;
+    }
+    .modal-header{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      padding:18px 18px 12px;
+      border-bottom:1px solid var(--border);
+    }
+    .modal-header h3{margin:0; font-size:18px}
+    .modal-header p{margin:8px 0 0; color:var(--muted); font-size:13px}
+    .modal-body{
+      padding:18px;
+      overflow:auto;
+    }
+    .modal-grid{
+      display:grid; grid-template-columns: 1fr .9fr; gap:14px;
+    }
+    @media (max-width: 900px){ .modal-grid{grid-template-columns:1fr;} }
+    .modal-shot{
+      border:1px solid var(--border);
+      border-radius: 16px;
+      overflow:hidden;
+      background: rgba(255,255,255,.02);
+    }
+    .modal-shot .thumb{border-bottom:0}
+    .close-x{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      border-radius:12px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:900;
+    }
+    .close-x:hover{background: rgba(255,255,255,.06)}
+    .form{
+      display:grid; gap:10px;
+    }
+    .form label{font-size:12px; color:var(--muted); font-weight:800}
+    .form input,.form textarea{
+      width:100%;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      padding:12px 12px;
+      border-radius:12px;
+      outline:none;
+      font-weight:700;
+    }
+    textarea{min-height:110px; resize:vertical}
+    .notice{
+      border:1px solid rgba(96,165,250,.35);
+      background: rgba(96,165,250,.08);
+      padding:12px 12px;
+      border-radius: 14px;
+      color: rgba(229,231,235,.95);
+      font-size:13px;
+      display:none;
+    }
+    .notice.err{
+      border-color: rgba(239,68,68,.35);
+      background: rgba(239,68,68,.08);
+    }
+    .rtl *{letter-spacing:0}
+  </style>
+</head>
+
+<body>
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b id="brandName">Raghdan</b>
+          <div class="pill" style="margin-top:6px" id="brandRole">Project Management Engineer & Architect</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#home" data-i18n="nav_home">Home</a>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#projects" data-i18n="nav_projects">Projects</a>
+        <a href="#resume" data-i18n="nav_resume">Resume</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </nav>
+
+      <div class="actions">
+        <button class="btn" id="btnLang" title="Toggle language">AR</button>
+        <a class="btn primary" id="btnCV" href="#" download data-i18n="btn_cv">Download CV</a>
+        <a class="btn success" id="btnWhatsApp" href="#" target="_blank" rel="noreferrer" data-i18n="btn_whatsapp">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <main id="home" class="container hero">
+    <div class="hero-grid">
+      <div class="card">
+        <div class="card-inner">
+          <div class="pill" id="heroPill" data-i18n="hero_pill">Industrial Facilities • Fit-Out • Compliance</div>
+          <h1 class="h1" id="heroTitle" data-i18n="hero_title">
+            I deliver practical execution from design to handover.
+          </h1>
+          <p class="sub" id="heroSub" data-i18n="hero_sub">
+            Portfolio of industrial and architectural work with focus on scope clarity, cost control, and compliance.
+          </p>
+          <div class="hero-cta">
+            <a class="btn primary" href="#projects" data-i18n="btn_view_projects">View Projects</a>
+            <a class="btn" href="#contact" data-i18n="btn_contact">Contact Me</a>
+            <button class="btn" id="btnCopyEmail" data-i18n="btn_copy_email">Copy Email</button>
+          </div>
+          <div style="margin-top:16px" class="pill">
+            <span id="emailText">email@example.com</span> • <span id="cityText">Jeddah, Saudi Arabia</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="section-title" style="margin:0 0 10px">
+            <h2 data-i18n="kpi_title">Highlights</h2>
+            <p data-i18n="kpi_note">Editable in code (data section)</p>
+          </div>
+          <div class="kpis">
+            <div class="kpi">
+              <b id="kpi1Val">+10</b>
+              <span id="kpi1Lbl" data-i18n="kpi1">Projects Delivered / Supported</span>
+            </div>
+            <div class="kpi">
+              <b id="kpi2Val">Procurement</b>
+              <span id="kpi2Lbl" data-i18n="kpi2">BOQ, RFQ, Technical Comparison</span>
+            </div>
+            <div class="kpi">
+              <b id="kpi3Val">SBC/NFPA</b>
+              <span id="kpi3Lbl" data-i18n="kpi3">Compliance & Site Coordination</span>
+            </div>
+            <div class="kpi">
+              <b id="kpi4Val">BIM/CAD</b>
+              <span id="kpi4Lbl" data-i18n="kpi4">Revit, AutoCAD, Twinmotion</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-title">
+        <div>
+          <h2 data-i18n="about_title">About</h2>
+          <p data-i18n="about_sub">Short, direct, and execution-focused.</p>
+        </div>
+        <span class="pill" id="aboutBadge" data-i18n="about_badge">Available for freelance / consulting</span>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-inner">
+            <p class="muted" id="aboutText" style="margin:0" data-i18n="about_text">
+              I work on industrial and architectural projects with a practical approach: define scope, control cost,
+              coordinate stakeholders, and deliver compliant results. I prepare BOQs, evaluate offers, review drawings,
+              and follow through on site until handover.
+            </p>
+            <div class="skills" id="skillsWrap"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <div class="section-title" style="margin:0 0 10px">
+              <h2 data-i18n="toolbox_title">Toolbox</h2>
+              <p data-i18n="toolbox_sub">Core tools & workstreams</p>
+            </div>
+            <div class="list" id="toolboxList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-title">
+        <div>
+          <h2 data-i18n="projects_title">Projects</h2>
+          <p data-i18n="projects_sub">Filter by category and open any project for full details.</p>
+        </div>
+        <div class="filters">
+          <select id="categoryFilter" aria-label="Category filter"></select>
+          <input id="searchInput" type="search" placeholder="Search..." aria-label="Search projects" />
+        </div>
+      </div>
+
+      <div class="grid" id="projectsGrid" aria-live="polite"></div>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume">
+      <div class="section-title">
+        <div>
+          <h2 data-i18n="resume_title">Resume</h2>
+          <p data-i18n="resume_sub">Experience, education, and certificates.</p>
+        </div>
+        <span class="pill" id="resumeBadge" data-i18n="resume_badge">PDF CV downloadable</span>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-inner">
+            <h3 style="margin:0 0 10px" data-i18n="exp_title">Experience</h3>
+            <div class="list" id="expList"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <h3 style="margin:0 0 10px" data-i18n="edu_title">Education & Certificates</h3>
+            <div class="list" id="eduList"></div>
+            <div style="height:12px"></div>
+            <div class="list" id="certList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-title">
+        <div>
+          <h2 data-i18n="contact_title">Contact</h2>
+          <p data-i18n="contact_sub">Send a message and I’ll get back to you.</p>
+        </div>
+        <span class="pill" id="contactPill">email@example.com</span>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-inner">
+            <div class="notice" id="contactNotice"></div>
+
+            <form class="form" id="contactForm">
+              <div>
+                <label data-i18n="f_name">Full name</label>
+                <input name="name" required placeholder="Your name" />
+              </div>
+              <div>
+                <label data-i18n="f_email">Email</label>
+                <input name="email" type="email" required placeholder="name@email.com" />
+              </div>
+              <div>
+                <label data-i18n="f_subject">Subject</label>
+                <input name="subject" required placeholder="Project / Proposal / Meeting" />
+              </div>
+              <div>
+                <label data-i18n="f_message">Message</label>
+                <textarea name="message" required placeholder="Write your message..."></textarea>
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+                <button class="btn primary" type="submit" data-i18n="f_send">Send</button>
+                <button class="btn" type="button" id="btnCopyPhone" data-i18n="btn_copy_phone">Copy Phone</button>
+                <a class="btn success" id="btnMailTo" href="#" data-i18n="btn_email">Email</a>
+              </div>
+              <p class="muted" style="margin:6px 0 0; font-size:12px" data-i18n="contact_note">
+                This demo form uses mailto/WhatsApp (no server). Connect to your backend when ready.
+              </p>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <h3 style="margin:0 0 10px" data-i18n="social_title">Links</h3>
+            <div class="list" id="socialList"></div>
+
+            <div style="height:12px"></div>
+
+            <h3 style="margin:0 0 10px" data-i18n="services_title">Services</h3>
+            <div class="list" id="servicesList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div class="container" style="padding:0">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; align-items:center">
+          <span>© <span id="year"></span> <span id="footerName">Raghdan</span></span>
+          <span class="pill" id="footerNote" data-i18n="footer_note">Built as a single-file portfolio (easy to host)</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Project details">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalTitle">Project</h3>
+          <p id="modalMeta">Category • Location • Status</p>
+        </div>
+        <button class="close-x" id="modalClose">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-shot">
+            <div class="thumb" id="modalThumb"></div>
+          </div>
+          <div>
+            <div class="pill" id="modalTags" style="display:flex; flex-wrap:wrap; gap:8px"></div>
+            <div style="height:10px"></div>
+            <div class="item">
+              <b data-i18n="m_summary">Summary</b>
+              <div class="muted" id="modalSummary" style="margin-top:6px"></div>
+            </div>
+            <div style="height:10px"></div>
+            <div class="item">
+              <b data-i18n="m_scope">Scope</b>
+              <div class="muted" id="modalScope" style="margin-top:6px"></div>
+            </div>
+            <div style="height:10px"></div>
+            <div class="item">
+              <b data-i18n="m_resp">Responsibilities</b>
+              <div class="muted" id="modalResp" style="margin-top:6px"></div>
+            </div>
+            <div style="height:10px"></div>
+            <div class="item">
+              <b data-i18n="m_tools">Tools</b>
+              <div class="muted" id="modalTools" style="margin-top:6px"></div>
+            </div>
+            <div style="height:12px"></div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <a class="btn primary" id="modalAction" href="#contact" data-i18n="m_cta">Discuss this project</a>
+              <button class="btn" id="modalCopyTitle" data-i18n="m_copy">Copy project title</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+        <div class="item">
+          <b data-i18n="m_media">Media</b>
+          <div class="muted" style="font-size:12px; margin-top:6px" data-i18n="m_media_note">
+            Add real images/links in the data section. This demo shows placeholders.
+          </div>
+          <div class="grid" id="modalMedia" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /***********************
+     * 1) EDIT YOUR DATA
+     ***********************/
+    const DATA = {
+      profile: {
+        fullName: "Raghdan",
+        headline: "Project Management Engineer & Architect",
+        city: "Jeddah",
+        country: "Saudi Arabia",
+        email: "email@example.com",
+        phone: "+966500000000",
+        linkedIn: "https://www.linkedin.com/",
+        cvUrl: "#", // put your CV PDF link here
+        whatsappNumber: "966500000000", // digits only
+        highlights: [
+          { value: "+10", label_en: "Projects Delivered / Supported", label_ar: "مشاريع تم تنفيذها/دعمها" },
+          { value: "Procurement", label_en: "BOQ, RFQ, Technical Comparison", label_ar: "BOQ وRFQ ومقارنات فنية" },
+          { value: "SBC/NFPA", label_en: "Compliance & Site Coordination", label_ar: "مطابقة و تنسيق بالموقع" },
+          { value: "BIM/CAD", label_en: "Revit, AutoCAD, Twinmotion", label_ar: "Revit وAutoCAD وTwinmotion" },
+        ],
+        about_en:
+          "I work on industrial and architectural projects with a practical approach: define scope, control cost, coordinate stakeholders, and deliver compliant results. I prepare BOQs, evaluate offers, review drawings, and follow through on site until handover.",
+        about_ar:
+          "أعمل على مشاريع صناعية ومعمارية بمنهج عملي: تحديد نطاق العمل بدقة، ضبط التكلفة، تنسيق أصحاب المصلحة، وتسليم نتائج مطابقة. أجهّز BOQ، أقارن العروض، أراجع الرسومات، وأتابع التنفيذ بالموقع حتى التسليم.",
+        skills: [
+          { name_en:"Project Management", name_ar:"إدارة المشاريع", color:"b" },
+          { name_en:"BOQ & Cost Control", name_ar:"حصر كميات وضبط تكلفة", color:"g" },
+          { name_en:"Vendor Evaluation", name_ar:"تقييم المقاولين", color:"b" },
+          { name_en:"Revit / AutoCAD", name_ar:"Revit / AutoCAD", color:"g" },
+          { name_en:"Site Coordination", name_ar:"تنسيق بالموقع", color:"b" },
+          { name_en:"SBC / NFPA Awareness", name_ar:"إلمام SBC / NFPA", color:"g" },
+        ],
+        toolbox: [
+          { title_en:"Scope & BOQ", title_ar:"النطاق وحصر الكميات", desc_en:"Define scope, BOQ breakdown, measurable deliverables.", desc_ar:"تحديد النطاق، تفصيل BOQ، مخرجات قابلة للقياس." },
+          { title_en:"Procurement", title_ar:"المشتريات", desc_en:"RFQ packages, offer comparison, technical clarifications.", desc_ar:"تجهيز RFQ، مقارنة عروض، استفسارات فنية." },
+          { title_en:"Execution", title_ar:"التنفيذ", desc_en:"Site follow-up, contractor coordination, punch lists.", desc_ar:"متابعة موقع، تنسيق مقاولي، قوائم ملاحظات." },
+          { title_en:"Compliance", title_ar:"الالتزام", desc_en:"Basic checks aligned with codes and safety requirements.", desc_ar:"فحوصات أساسية وفق الأكواد ومتطلبات السلامة." }
+        ],
+        services: [
+          { title_en:"BOQ Review & Pricing Comparison", title_ar:"مراجعة BOQ ومقارنة أسعار", desc_en:"Detect duplicates, gaps, and abnormal pricing patterns.", desc_ar:"كشف التكرار والنواقص وأنماط التسعير غير الطبيعية." },
+          { title_en:"Technical Submittal Review", title_ar:"مراجعة الاعتمادات الفنية", desc_en:"Check drawings/specs alignment and raise RFIs.", desc_ar:"مطابقة الرسومات والمواصفات وإصدار RFIs." },
+          { title_en:"Project Coordination", title_ar:"تنسيق المشروع", desc_en:"Stakeholder coordination, schedule follow-up, reporting.", desc_ar:"تنسيق الجهات، متابعة الجدول، تقارير." },
+          { title_en:"Industrial Fit-Out Support", title_ar:"دعم تجهيزات المصانع", desc_en:"Layout, compliance, practical execution details.", desc_ar:"مخططات، التزام، تفاصيل تنفيذ عملية." }
+        ]
+      },
+
+      categories: [
+        "All","Industrial","Architecture","Interior","HVAC","FireSafety","Branding","Other"
+      ],
+
+      // projects will be loaded from projects.json; this empty array is a placeholder.
+      projects: [],
+
+      experience: [
+        {
+          company_en:"National Biscuits & Confectionery Co. (NBCC)",
+          company_ar:"الشركة الوطنية للبسكويت والحلويات (NBCC)",
+          role_en:"Project Management Engineer",
+          role_ar:"مهندس إدارة مشاريع",
+          location_en:"Jeddah",
+          location_ar:"جدة",
+          period_en:"2025 – Present",
+          period_ar:"2025 – حتى الآن",
+          desc_en:"Leading engineering deliverables across industrial facilities and support areas. Scope control, procurement coordination, and site follow-up.",
+          desc_ar:"قيادة مخرجات هندسية لمرافق صناعية ومناطق دعم. ضبط نطاق، تنسيق مشتريات، متابعة موقع.",
+          ach_en:"BOQ reviews, vendor comparisons, layout updates, reporting.",
+          ach_ar:"مراجعة BOQ، مقارنة عروض، تحديث مخططات، تقارير."
+        },
+        {
+          company_en:"Salah Al-Zughaybi Group",
+          company_ar:"مجموعة صلاح الزغيبي",
+          role_en:"Architect / Consultant",
+          role_ar:"مهندس معماري / مستشار",
+          location_en:"Riyadh / Jeddah",
+          location_ar:"الرياض / جدة",
+          period_en:"2024 – Present",
+          period_ar:"2024 – حتى الآن",
+          desc_en:"Design development, drawings review, and visualizations for mixed-use and commercial projects.",
+          desc_ar:"تطوير تصاميم، مراجعة رسومات، وتصوير/إخراج بصري لمشاريع تجارية ومتعددة الاستخدام.",
+          ach_en:"3D massing, interior concepts, coordination packages.",
+          ach_ar:"كتل ثلاثية الأبعاد، مفاهيم داخلية، حزم تنسيق."
+        }
+      ],
+
+      education: [
+        {
+          inst_en:"Umm Al-Qura University",
+          inst_ar:"جامعة أم القرى",
+          degree_en:"B.Arch (Architecture)",
+          degree_ar:"بكالوريوس عمارة",
+          period_en:"Graduated",
+          period_ar:"متخرج",
+          notes_en:"Architecture fundamentals, design studios, project work.",
+          notes_ar:"أساسيات العمارة، ستوديوهات تصميم، مشاريع."
+        }
+      ],
+
+      certifications: [
+        {
+          name_en:"CAPM Training (25 hours) – Attendance Certificate",
+          name_ar:"دورة CAPM (25 ساعة) – شهادة حضور",
+          issuer_en:"King Abdulaziz University – Applied College",
+          issuer_ar:"جامعة الملك عبدالعزيز – الكلية التطبيقية",
+          date_en:"Issued Jul 2025",
+          date_ar:"صادرة يوليو 2025",
+          url:"#"
+        },
+        {
+          name_en:"Saudi Council of Engineers (Membership)",
+          name_ar:"الهيئة السعودية للمهندسين (عضوية)",
+          issuer_en:"SCE",
+          issuer_ar:"SCE",
+          date_en:"Active",
+          date_ar:"سارية",
+          url:"#"
+        }
+      ],
+
+      social: [
+        { title_en:"LinkedIn", title_ar:"LinkedIn", url:"https://www.linkedin.com/" },
+        { title_en:"Email", title_ar:"البريد", url:"mailto:email@example.com" },
+        { title_en:"WhatsApp", title_ar:"واتساب", url:"#WHATSAPP#" }
+      ]
+    };
+
+    /***********************
+     * 2) LANGUAGE + TEXT
+     ***********************/
+    const I18N = {
+      en: {
+        nav_home:"Home", nav_about:"About", nav_projects:"Projects", nav_resume:"Resume", nav_contact:"Contact",
+        btn_cv:"Download CV", btn_whatsapp:"WhatsApp",
+        hero_pill:"Industrial Facilities • Fit-Out • Compliance",
+        hero_title:"I deliver practical execution from design to handover.",
+        hero_sub:"Portfolio of industrial and architectural work with focus on scope clarity, cost control, and compliance.",
+        btn_view_projects:"View Projects", btn_contact:"Contact Me", btn_copy_email:"Copy Email",
+        kpi_title:"Highlights", kpi_note:"Editable in code (data section)",
+        kpi1:"Projects Delivered / Supported", kpi2:"BOQ, RFQ, Technical Comparison", kpi3:"Compliance & Site Coordination", kpi4:"Revit, AutoCAD, Twinmotion",
+        about_title:"About", about_sub:"Short, direct, and execution-focused.", about_badge:"Available for freelance / consulting",
+        about_text: DATA.profile.about_en,
+        toolbox_title:"Toolbox", toolbox_sub:"Core tools & workstreams",
+        projects_title:"Projects", projects_sub:"Filter by category and open any project for full details.",
+        resume_title:"Resume", resume_sub:"Experience, education, and certificates.", resume_badge:"PDF CV downloadable",
+        exp_title:"Experience", edu_title:"Education & Certificates",
+        contact_title:"Contact", contact_sub:"Send a message and I’ll get back to you.",
+        f_name:"Full name", f_email:"Email", f_subject:"Subject", f_message:"Message", f_send:"Send",
+        btn_copy_phone:"Copy Phone", btn_email:"Email",
+        contact_note:"This demo form uses mailto/WhatsApp (no server). Connect to your backend when ready.",
+        social_title:"Links", services_title:"Services",
+        footer_note:"Built as a single-file portfolio (easy to host)",
+        m_summary:"Summary", m_scope:"Scope", m_resp:"Responsibilities", m_tools:"Tools",
+        m_cta:"Discuss this project", m_copy:"Copy project title",
+        m_media:"Media", m_media_note:"Add real images/links in the data section. This demo shows placeholders.",
+      },
+      ar: {
+        nav_home:"الرئيسية", nav_about:"نبذة", nav_projects:"المشاريع", nav_resume:"السيرة", nav_contact:"التواصل",
+        btn_cv:"تحميل السيرة", btn_whatsapp:"واتساب",
+        hero_pill:"مرافق صناعية • تشطيبات • مطابقة",
+        hero_title:"أنفّذ عمليًا من التصميم حتى التسليم.",
+        hero_sub:"بورتفوليو لأعمال صناعية ومعمارية مع تركيز على وضوح النطاق وضبط التكلفة والمطابقة.",
+        btn_view_projects:"عرض المشاريع", btn_contact:"تواصل معي", btn_copy_email:"نسخ البريد",
+        kpi_title:"ملخص سريع", kpi_note:"قابل للتعديل داخل الكود",
+        kpi1:"مشاريع تم تنفيذها/دعمها", kpi2:"BOQ وRFQ ومقارنات فنية", kpi3:"مطابقة وتنسيق بالموقع", kpi4:"Revit وAutoCAD وTwinmotion",
+        about_title:"نبذة", about_sub:"مختصر ومباشر وتركيز على التنفيذ.", about_badge:"متاح للأعمال الحرة/الاستشارات",
+        about_text: DATA.profile.about_ar,
+        toolbox_title:"منهج العمل", toolbox_sub:"الأدوات والمسارات الأساسية",
+        projects_title:"المشاريع", projects_sub:"فلترة حسب النوع وافتح أي مشروع للتفاصيل.",
+        resume_title:"السيرة المهنية", resume_sub:"الخبرات والتعليم والشهادات.", resume_badge:"السيرة PDF قابلة للتحميل",
+        exp_title:"الخبرات", edu_title:"التعليم والشهادات",
+        contact_title:"التواصل", contact_sub:"أرسل رسالة وسأرد عليك.",
+        f_name:"الاسم الكامل", f_email:"البريد", f_subject:"الموضوع", f_message:"الرسالة", f_send:"إرسال",
+        btn_copy_phone:"نسخ الجوال", btn_email:"إيميل",
+        contact_note:"هذا نموذج تجريبي بدون سيرفر (mailto/WhatsApp). اربطه بباك-إند لاحقًا.",
+        social_title:"الروابط", services_title:"الخدمات",
+        footer_note:"موقع بملف واحد (سهل الاستضافة)",
+        m_summary:"ملخص", m_scope:"نطاق العمل", m_resp:"المسؤوليات", m_tools:"الأدوات",
+        m_cta:"ناقش هذا المشروع", m_copy:"نسخ اسم المشروع",
+        m_media:"مرفقات/صور", m_media_note:"أضف صور وروابط حقيقية من قسم البيانات. هذا عرض تجريبي.",
+      }
+    };
+
+    let lang = "en";
+
+    /***********************
+     * 3) HELPERS
+     ***********************/
+    const $ = (id) => document.getElementById(id);
+    const escapeHtml = (s="") => s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+    const toWhatsAppLink = (numberDigits, text) => `https://wa.me/${numberDigits}?text=${encodeURIComponent(text)}`;
+
+    function setDirAndLang(){
+      const html = document.documentElement;
+      html.lang = lang;
+      html.dir = (lang === "ar") ? "rtl" : "ltr";
+      document.body.classList.toggle("rtl", lang==="ar");
+
+      // search placeholder
+      $("searchInput").placeholder = (lang==="ar") ? "بحث..." : "Search...";
+    }
+
+    function applyI18N(){
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        if(I18N[lang][key] !== undefined) el.textContent = I18N[lang][key];
+      });
+      $("btnLang").textContent = (lang === "en") ? "AR" : "EN";
+    }
+
+    function fillProfileUI(){
+      $("brandName").textContent = DATA.profile.fullName;
+      $("footerName").textContent = DATA.profile.fullName;
+      $("brandRole").textContent = DATA.profile.headline;
+      $("emailText").textContent = DATA.profile.email;
+      $("contactPill").textContent = DATA.profile.email;
+      $("cityText").textContent = `${DATA.profile.city}, ${DATA.profile.country}`;
+      $("btnCV").href = DATA.profile.cvUrl;
+      $("btnMailTo").href = `mailto:${DATA.profile.email}`;
+      $("btnWhatsApp").href = toWhatsAppLink(DATA.profile.whatsappNumber, (lang==="ar") ? "مرحبًا، أبغى أتواصل بخصوص مشروع." : "Hi, I’d like to discuss a project.");
+      // social whatsapp placeholder replacement
+      DATA.social.forEach(s=>{
+        if(s.url === "#WHATSAPP#") s.url = $("btnWhatsApp").href;
+      });
+
+      // KPIs
+      const H = DATA.profile.highlights;
+      $("kpi1Val").textContent = H[0].value;
+      $("kpi2Val").textContent = H[1].value;
+      $("kpi3Val").textContent = H[2].value;
+      $("kpi4Val").textContent = H[3].value;
+      $("kpi1Lbl").textContent = (lang==="ar") ? H[0].label_ar : H[0].label_en;
+      $("kpi2Lbl").textContent = (lang==="ar") ? H[1].label_ar : H[1].label_en;
+      $("kpi3Lbl").textContent = (lang==="ar") ? H[2].label_ar : H[2].label_en;
+      $("kpi4Lbl").textContent = (lang==="ar") ? H[3].label_ar : H[3].label_en;
+
+      // About text
+      $("aboutText").textContent = I18N[lang].about_text;
+    }
+
+    function renderSkills(){
+      const wrap = $("skillsWrap");
+      wrap.innerHTML = "";
+      DATA.profile.skills.forEach(s=>{
+        const div = document.createElement("div");
+        div.className = "skill";
+        div.innerHTML = `<span class="dot ${s.color==='g'?'g':''}"></span><b>${escapeHtml(lang==="ar"?s.name_ar:s.name_en)}</b>`;
+        wrap.appendChild(div);
+      });
+    }
+
+    function renderToolbox(){
+      const list = $("toolboxList");
+      list.innerHTML = "";
+      DATA.profile.toolbox.forEach(t=>{
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="top">
+            <div>
+              <b>${escapeHtml(lang==="ar"?t.title_ar:t.title_en)}</b>
+              <div class="muted" style="margin-top:6px">${escapeHtml(lang==="ar"?t.desc_ar:t.desc_en)}</div>
+            </div>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function renderCategoryFilter(){
+      const sel = $("categoryFilter");
+      sel.innerHTML = "";
+      DATA.categories.forEach(c=>{
+        const opt = document.createElement("option");
+        const name = (lang==="ar")
+          ? ({All:"الكل",Industrial:"صناعي",Architecture:"معماري",Interior:"تشطيبات",HVAC:"HVAC",FireSafety:"سلامة حريق",Branding:"هوية",Other:"أخرى"}[c] || c)
+          : c;
+        opt.value = c;
+        opt.textContent = name;
+        sel.appendChild(opt);
+      });
+    }
+
+    function projectTitle(p){ return (lang==="ar") ? p.title_ar : p.title_en; }
+    function projectSummary(p){ return (lang==="ar") ? p.summary_ar : p.summary_en; }
+    function projectScope(p){ return (lang==="ar") ? p.scope_ar : p.scope_en; }
+    function projectResp(p){ return (lang==="ar") ? p.resp_ar : p.resp_en; }
+    function projectTools(p){ return (lang==="ar") ? p.tools_ar : p.tools_en; }
+
+    function renderProjects(){
+      const grid = $("projectsGrid");
+      if(!grid) return;
+      grid.innerHTML = "";
+      const cat = $("categoryFilter").value;
+      const q = $("searchInput").value.trim().toLowerCase();
+
+      const filtered = DATA.projects
+        .filter(p => (cat === "All" ? true : p.category === cat))
+        .filter(p => {
+          if(!q) return true;
+          const hay = `${p.id} ${p.category} ${projectTitle(p)} ${projectSummary(p)} ${p.tags.join(" ")}`.toLowerCase();
+          return hay.includes(q);
+        })
+        .sort((a,b)=> (b.featured===true) - (a.featured===true));
+
+      if(filtered.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "item";
+        empty.style.gridColumn = "1/-1";
+        empty.innerHTML = `<b>${lang==="ar"?"لا توجد نتائج":"No results"}</b><div class="muted" style="margin-top:6px">${lang==="ar"?"جرّب تغيير الفلتر أو البحث.":"Try changing filters or search."}</div>`;
+        grid.appendChild(empty);
+        return;
+      }
+
+      filtered.forEach(p=>{
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        tile.tabIndex = 0;
+        tile.setAttribute("role","button");
+        tile.setAttribute("aria-label","Open project details");
+        tile.innerHTML = `
+          <div class="thumb"></div>
+          <div class="tile-body">
+            <h3>${escapeHtml(projectTitle(p))}</h3>
+            <p>${escapeHtml(projectSummary(p))}</p>
+            <div class="meta">
+              <span class="tag">${escapeHtml(p.category)}</span>
+              <span class="tag">${escapeHtml(p.location)}</span>
+              <span class="tag">${escapeHtml(p.status)}</span>
+              ${p.featured ? `<span class="tag" style="border-color:rgba(34,197,94,.45); color:#c7f9d4">★ ${lang==="ar"?"مميز":"Featured"}</span>` : ""}
+            </div>
+          </div>
+        `;
+        tile.addEventListener("click", ()=> openModal(p.id));
+        tile.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openModal(p.id); }});
+        grid.appendChild(tile);
+      });
+    }
+
+    function renderResume(){
+      const expList = $("expList");
+      expList.innerHTML = "";
+      DATA.experience.forEach(e=>{
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="top">
+            <div>
+              <b>${escapeHtml(lang==="ar"?e.role_ar:e.role_en)}</b>
+              <small>${escapeHtml(lang==="ar"?e.company_ar:e.company_en)} • ${escapeHtml(lang==="ar"?e.location_ar:e.location_en)}</small>
+            </div>
+            <small>${escapeHtml(lang==="ar"?e.period_ar:e.period_en)}</small>
+          </div>
+          <div class="muted" style="margin-top:8px">${escapeHtml(lang==="ar"?e.desc_ar:e.desc_en)}</div>
+          <div class="muted" style="margin-top:8px"><b style="color:var(--text)">${lang==="ar"?"إنجازات: ":"Achievements: "}</b>${escapeHtml(lang==="ar"?e.ach_ar:e.ach_en)}</div>
+        `;
+        expList.appendChild(div);
+      });
+
+      const eduList = $("eduList");
+      eduList.innerHTML = "";
+      DATA.education.forEach(ed=>{
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <b>${escapeHtml(lang==="ar"?ed.degree_ar:ed.degree_en)}</b>
+          <small>${escapeHtml(lang==="ar"?ed.inst_ar:ed.inst_en)} • ${escapeHtml(lang==="ar"?ed.period_ar:ed.period_en)}</small>
+          <div class="muted" style="margin-top:8px">${escapeHtml(lang==="ar"?ed.notes_ar:ed.notes_en)}</div>
+        `;
+        eduList.appendChild(div);
+      });
+
+      const certList = $("certList");
+      certList.innerHTML = "";
+      DATA.certifications.forEach(c=>{
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="top">
+            <div>
+              <b>${escapeHtml(lang==="ar"?c.name_ar:c.name_en)}</b>
+              <small>${escapeHtml(lang==="ar"?c.issuer_ar:c.issuer_en)}</small>
+            </div>
+            <small>${escapeHtml(lang==="ar"?c.date_ar:c.date_en)}</small>
+          </div>
+          ${c.url && c.url !== "#" ? `<div style="margin-top:10px"><a class="btn" href="${escapeHtml(c.url)}" target="_blank" rel="noreferrer">${lang==="ar"?"فتح الرابط":"Open link"}</a></div>` : ""}
+        `;
+        certList.appendChild(div);
+      });
+    }
+
+    function renderSocialAndServices(){
+      const social = $("socialList");
+      social.innerHTML = "";
+      DATA.social.forEach(s=>{
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="top">
+            <div>
+              <b>${escapeHtml(lang==="ar"?s.title_ar:s.title_en)}</b>
+              <div class="muted" style="margin-top:6px">${escapeHtml(s.url)}</div>
+            </div>
+            <a class="btn" href="${escapeHtml(s.url)}" target="_blank" rel="noreferrer">${lang==="ar"?"فتح":"Open"}</a>
+          </div>
+        `;
+        social.appendChild(div);
+      });
+
+      const services = $("servicesList");
+      services.innerHTML = "";
+      DATA.profile.services.forEach(s=>{
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <b>${escapeHtml(lang==="ar"?s.title_ar:s.title_en)}</b>
+          <div class="muted" style="margin-top:6px">${escapeHtml(lang==="ar"?s.desc_ar:s.desc_en)}</div>
+        `;
+        services.appendChild(div);
+      });
+    }
+
+    /***********************
+     * 4) MODAL
+     ***********************/
+    function openModal(projectId){
+      const p = DATA.projects.find(x=>x.id===projectId);
+      if(!p) return;
+
+      $("modalTitle").textContent = projectTitle(p);
+      $("modalMeta").textContent = `${p.category} • ${p.location} • ${p.status} • ${p.dates || ''}`;
+      $("modalSummary").textContent = projectSummary(p);
+      $("modalScope").textContent = projectScope(p);
+      $("modalResp").textContent = projectResp(p);
+      $("modalTools").textContent = projectTools(p);
+
+      // tags
+      const tagsWrap = $("modalTags");
+      tagsWrap.innerHTML = "";
+      p.tags.forEach(t=>{
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = t;
+        tagsWrap.appendChild(span);
+      });
+
+      // media placeholders
+      const media = $("modalMedia");
+      media.innerHTML = "";
+      const mediaItems = (p.media && p.media.length) ? p.media : [
+        {type:"Image", title: lang==="ar"?"صورة تجريبية":"Demo Image", url:"#"},
+        {type:"PDF", title: lang==="ar"?"ملف تجريبي":"Demo PDF", url:"#"},
+      ];
+      mediaItems.forEach(m=>{
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        tile.innerHTML = `
+          <div class="thumb"></div>
+          <div class="tile-body">
+            <h3>${escapeHtml(m.title)}</h3>
+            <p>${escapeHtml(m.type)} • ${escapeHtml(m.url)}</p>
+            <div class="meta"><span class="tag">${escapeHtml(m.type)}</span></div>
+          </div>
+        `;
+        tile.addEventListener("click", ()=>{
+          if(m.url && m.url !== "#") window.open(m.url, "_blank");
+        });
+        media.appendChild(tile);
+      });
+
+      $("modalCopyTitle").onclick = () => copyToClipboard(projectTitle(p), lang==="ar"?"تم النسخ":"Copied");
+      $("modalBackdrop").style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      $("modalBackdrop").style.display = "none";
+      document.body.style.overflow = "";
+    }
+
+    /***********************
+     * 5) CONTACT (MAILTO + WHATSAPP)
+     ***********************/
+    function showNotice(msg, isErr=false){
+      const n = $("contactNotice");
+      n.textContent = msg;
+      n.classList.toggle("err", isErr);
+      n.style.display = "block";
+      setTimeout(()=>{ n.style.display="none"; }, 4200);
+    }
+
+    function handleContactSubmit(e){
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const name = (fd.get("name")||"").toString().trim();
+      const email = (fd.get("email")||"").toString().trim();
+      const subject = (fd.get("subject")||"").toString().trim();
+      const message = (fd.get("message")||"").toString().trim();
+
+      if(!name || !email || !subject || !message){
+        showNotice(lang==="ar" ? "فضلاً عبّئ كل الحقول." : "Please fill all fields.", true);
+        return;
+      }
+
+      const body = `${lang==="ar"?"الاسم":"Name"}: ${name}
+${lang==="ar"?"البريد":"Email"}: ${email}
+
+${message}
+
+— Sent from Portfolio Website`;
+      const mailto = `mailto:${DATA.profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // Open mail client
+      window.location.href = mailto;
+
+      // Optional WhatsApp message (comment if you don't want)
+      const waText = `${lang==="ar"?"مرحبًا":"Hi"}, ${DATA.profile.fullName}. ${lang==="ar"?"أنا":"I am"} ${name}. ${lang==="ar"?"الموضوع":"Subject"}: ${subject}. ${message}`;
+      $("btnWhatsApp").href = toWhatsAppLink(DATA.profile.whatsappNumber, waText);
+
+      showNotice(lang==="ar" ? "تم تجهيز الإيميل. إذا تبغى واتساب اضغط زر واتساب." : "Email prepared. Use WhatsApp button if needed.");
+      e.target.reset();
+    }
+
+    /***********************
+     * 6) CLIPBOARD
+     ***********************/
+    async function copyToClipboard(text, okMsg){
+      try{
+        await navigator.clipboard.writeText(text);
+        showNotice(okMsg, false);
+      }catch{
+        showNotice(lang==="ar" ? "تعذر النسخ." : "Copy failed.", true);
+      }
+    }
+
+    /***********************
+     * 7) PROJECT LOADER
+     ***********************/
+    async function loadProjects(){
+      try {
+        const res = await fetch('projects.json');
+        if(!res.ok) throw new Error('Failed to load projects.json');
+        const json = await res.json();
+        if(Array.isArray(json.projects)){
+          DATA.projects = json.projects;
+        } else {
+          console.warn('projects.json does not contain an array called "projects"');
+        }
+      } catch(err){
+        console.error(err);
+      }
+    }
+
+    /***********************
+     * 8) INIT + EVENTS
+     ***********************/
+    async function renderAll(){
+      setDirAndLang();
+      applyI18N();
+      fillProfileUI();
+      renderSkills();
+      renderToolbox();
+      renderCategoryFilter();
+      renderResume();
+      renderSocialAndServices();
+      renderProjects();
+    }
+
+    window.addEventListener("DOMContentLoaded", async ()=>{
+      $("year").textContent = new Date().getFullYear();
+
+      $("btnLang").addEventListener("click", ()=>{
+        lang = (lang==="en") ? "ar" : "en";
+        renderAll();
+      });
+
+      $("categoryFilter").addEventListener("change", renderProjects);
+      $("searchInput").addEventListener("input", renderProjects);
+
+      $("modalClose").addEventListener("click", closeModal);
+      $("modalBackdrop").addEventListener("click", (e)=>{ if(e.target === $("modalBackdrop")) closeModal(); });
+      document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeModal(); });
+
+      $("btnCopyEmail").addEventListener("click", ()=> copyToClipboard(DATA.profile.email, lang==="ar"?"تم نسخ البريد":"Email copied"));
+      $("btnCopyPhone").addEventListener("click", ()=> copyToClipboard(DATA.profile.phone, lang==="ar"?"تم نسخ الجوال":"Phone copied"));
+
+      $("contactForm").addEventListener("submit", handleContactSubmit);
+
+      // initial WhatsApp link + footer
+      $("footerName").textContent = DATA.profile.fullName;
+
+      // mailto button
+      $("btnMailTo").href = `mailto:${DATA.profile.email}`;
+
+      // contact pill
+      $("contactPill").textContent = DATA.profile.email;
+
+      // Load projects from external JSON, then render everything
+      await loadProjects();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
