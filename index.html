@@ -301,6 +301,7 @@
         <a href="#projects" data-i18n="nav_projects">Projects</a>
         <a href="#resume" data-i18n="nav_resume">Resume</a>
         <a href="#contact" data-i18n="nav_contact">Contact</a>
+        <a href="#admin" data-i18n="nav_admin">Admin</a>
       </nav>
 
       <div class="actions">
@@ -495,6 +496,28 @@
             <h3 style="margin:0 0 10px" data-i18n="services_title">Services</h3>
             <div class="list" id="servicesList"></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="admin">
+      <div class="section-title">
+        <div>
+          <h2 data-i18n="admin_title">Admin</h2>
+          <p data-i18n="admin_sub">Upload a projects JSON file to populate the portfolio.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <form class="form" id="uploadForm">
+            <div>
+              <label data-i18n="admin_file">Projects JSON file</label>
+              <input id="projectsFile" type="file" accept=".json" required />
+            </div>
+            <button class="btn primary" type="submit" data-i18n="admin_upload">Upload</button>
+          </form>
+          <div class="notice" id="uploadNotice"></div>
         </div>
       </div>
     </section>
@@ -771,6 +794,13 @@
         m_summary:"Summary", m_scope:"Scope", m_resp:"Responsibilities", m_tools:"Tools",
         m_cta:"Discuss this project", m_copy:"Copy project title",
         m_media:"Media", m_media_note:"Add real images/links in the data section. This demo shows placeholders.",
+        nav_admin:"Admin",
+        admin_title:"Admin",
+        admin_sub:"Upload a projects JSON file to populate the portfolio.",
+        admin_file:"Projects JSON file",
+        admin_upload:"Upload",
+        admin_success:"Projects loaded successfully.",
+        admin_error:"Invalid projects file.",
       },
       ar: {
         nav_home:"الرئيسية", nav_about:"نبذة", nav_projects:"المشاريع", nav_resume:"السيرة", nav_contact:"التواصل",
@@ -796,6 +826,13 @@
         m_summary:"ملخص", m_scope:"نطاق العمل", m_resp:"المسؤوليات", m_tools:"الأدوات",
         m_cta:"ناقش هذا المشروع", m_copy:"نسخ اسم المشروع",
         m_media:"مرفقات/صور", m_media_note:"أضف صور وروابط حقيقية من قسم البيانات. هذا عرض تجريبي.",
+        nav_admin:"الإدارة",
+        admin_title:"لوحة التحكم",
+        admin_sub:"قم برفع ملف JSON للمشاريع لتعبئة البورتفوليو.",
+        admin_file:"ملف المشاريع (JSON)",
+        admin_upload:"رفع",
+        admin_success:"تم تحميل المشاريع بنجاح.",
+        admin_error:"صيغة الملف غير صحيحة.",
       }
     };
 
@@ -1107,6 +1144,45 @@
       setTimeout(()=>{ n.style.display="none"; }, 4200);
     }
 
+    // Show notice in Admin upload section
+    function showUploadNotice(msg, isErr=false){
+      const n = $("uploadNotice");
+      n.textContent = msg;
+      n.classList.toggle("err", isErr);
+      n.style.display = "block";
+      setTimeout(()=>{ n.style.display="none"; }, 4200);
+    }
+
+    // Handle upload form submission to import projects from JSON
+    function handleUploadSubmit(e){
+      e.preventDefault();
+      const fileInput = $("projectsFile");
+      const file = fileInput.files[0];
+      if(!file){
+        showUploadNotice((lang==="ar" ? I18N.ar.admin_error : I18N.en.admin_error), true);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(ev){
+        try {
+          const obj = JSON.parse(ev.target.result);
+          if(Array.isArray(obj.projects)){
+            // Replace projects array
+            DATA.projects = obj.projects;
+            renderCategoryFilter();
+            renderProjects();
+            showUploadNotice((lang==="ar" ? I18N.ar.admin_success : I18N.en.admin_success), false);
+          } else {
+            showUploadNotice((lang==="ar" ? I18N.ar.admin_error : I18N.en.admin_error), true);
+          }
+        } catch(err){
+          showUploadNotice((lang==="ar" ? I18N.ar.admin_error : I18N.en.admin_error), true);
+        }
+      };
+      reader.readAsText(file);
+      e.target.reset();
+    }
+
     function handleContactSubmit(e){
       e.preventDefault();
       const fd = new FormData(e.target);
@@ -1203,6 +1279,10 @@ ${message}
       $("btnCopyPhone").addEventListener("click", ()=> copyToClipboard(DATA.profile.phone, lang==="ar"?"تم نسخ الجوال":"Phone copied"));
 
       $("contactForm").addEventListener("submit", handleContactSubmit);
+
+      // Admin upload form listener
+      const uploadFormEl = $("uploadForm");
+      if(uploadFormEl) uploadFormEl.addEventListener("submit", handleUploadSubmit);
 
       // initial WhatsApp link + footer
       $("footerName").textContent = DATA.profile.fullName;
