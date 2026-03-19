@@ -1,222 +1,411 @@
 {
   "projects": [
     {
-      "id": "P-001",
-      "title_en": "Industrial Facility Upgrade",
-      "title_ar": "تطوير مرافق صناعية",
+      "id": "nbcc-factory-projects",
+      "title_en": "NBCC Industrial Projects Portfolio",
+      "title_ar": "محفظة مشاريع NBCC الصناعية",
       "category": "Industrial",
       "client": "NBCC",
-      "location": "Jeddah",
+      "location": "Jeddah, Saudi Arabia",
       "status": "Ongoing",
-      "dates": "2025–2026",
-      "summary_en": "Upgrading production/support facilities with scope control and stakeholder coordination.",
-      "summary_ar": "تطوير مرافق الإنتاج والدعم مع ضبط نطاق العمل وتنسيق الجهات.",
-      "scope_en": "Layout updates, coordination, BOQ support, and site follow-up.",
-      "scope_ar": "تحديث مخططات، تنسيق، دعم BOQ، متابعة موقع.",
-      "resp_en": "Prepared BOQ items, evaluated offers, coordinated site requirements and punch lists.",
-      "resp_ar": "تجهيز بنود BOQ، مقارنة عروض، تنسيق متطلبات الموقع وقائمة الملاحظات.",
-      "tools_en": "Revit, AutoCAD, Excel, Site inspections",
-      "tools_ar": "Revit، AutoCAD، Excel، زيارات موقع",
+      "dates": "2025–Present",
+      "featured": true,
+      "summary_en": "Portfolio of factory and facility improvement projects across production, utilities, staff spaces, and site infrastructure.",
+      "summary_ar": "محفظة مشاريع تطوير وتحسين داخل المصنع والمرافق تشمل الإنتاج والخدمات ومساحات الموظفين والبنية التحتية للموقع.",
+      "scope_en": "Project coordination, BOQ preparation, offer review, design development, site follow-up, procurement coordination, and execution alignment.",
+      "scope_ar": "تنسيق المشاريع، إعداد BOQ، مراجعة العروض، تطوير التصاميم، متابعة الموقع، التنسيق مع المشتريات، ومواءمة التنفيذ.",
+      "resp_en": "Led or supported multiple internal improvement scopes with emphasis on scope clarity, practicality, compliance, and stakeholder coordination.",
+      "resp_ar": "قيادة أو دعم عدة نطاقات تحسين داخلية مع التركيز على وضوح النطاق والعملية والالتزام والتنسيق مع أصحاب المصلحة.",
+      "tools_en": "AutoCAD, Revit, Excel, SAP, site inspections, technical comparisons",
+      "tools_ar": "AutoCAD، Revit، Excel، SAP، زيارات موقع، مقارنات فنية",
       "tags": [
+        "Industrial",
+        "Coordination",
         "BOQ",
         "Procurement",
-        "Execution",
-        "Compliance"
+        "Execution"
       ],
-      "featured": true,
-      "media": [
+      "gallery": [
         {
-          "type": "Image",
-          "title": "Before / After",
-          "url": "#"
+          "title_en": "Gate 2 design and branding scope",
+          "title_ar": "نطاق تصميم وتطوير البوابة الثانية",
+          "caption_en": "Factory Gate 2 design scope including façades, logo placement, and front-of-house image improvement.",
+          "caption_ar": "نطاق تطوير البوابة الثانية للمصنع بما يشمل الواجهات وتوزيع الشعارات وتحسين الصورة العامة للمدخل.",
+          "image": ""
         },
         {
-          "type": "PDF",
-          "title": "Scope Summary",
-          "url": "#"
+          "title_en": "Administrative offices fit-out",
+          "title_ar": "تجهيز المكاتب الإدارية",
+          "caption_en": "Office planning and fit-out packages covering layout, finishes, furniture direction, and functional use.",
+          "caption_ar": "حزم تخطيط وتجهيز المكاتب الإدارية وتشمل التوزيع الداخلي والتشطيبات وتوجيه الأثاث والاستخدام الوظيفي.",
+          "image": ""
         },
         {
-          "type": "Image",
-          "title": "Layout Snapshot",
-          "url": "#"
+          "title_en": "CEO office development",
+          "title_ar": "تطوير مكتب الرئيس التنفيذي",
+          "caption_en": "Executive office design focused on space hierarchy, material selection, and a formal corporate image.",
+          "caption_ar": "تصميم مكتب تنفيذي يركز على هيكلية المساحة واختيار المواد وإظهار صورة مؤسسية رسمية.",
+          "image": ""
         }
       ]
     },
     {
-      "id": "P-002",
-      "title_en": "Office Fit-Out & Branding",
-      "title_ar": "تشطيبات مكاتب وهوية بصرية",
-      "category": "Interior",
-      "client": "NBCC",
-      "location": "Jeddah",
-      "status": "Completed",
-      "dates": "2024–2025",
-      "summary_en": "Executive office fit-out with functional layout and branding integration.",
-      "summary_ar": "تشطيب مكاتب تنفيذية بتوزيع عملي ودمج الهوية البصرية.",
-      "scope_en": "Space planning, finishes coordination, vendor follow-up.",
-      "scope_ar": "تخطيط مساحات، تنسيق تشطيبات، متابعة موردين.",
-      "resp_en": "Reviewed drawings, coordinated finishes, managed deliverables with contractors.",
-      "resp_ar": "مراجعة رسومات، تنسيق تشطيبات، إدارة مخرجات المقاولين.",
-      "tools_en": "AutoCAD, SketchUp, Excel",
-      "tools_ar": "AutoCAD، SketchUp، Excel",
-      "tags": [
-        "Fit-Out",
-        "Branding",
-        "Coordination"
-      ],
-      "featured": true,
-      "media": [
-        {
-          "type": "Image",
-          "title": "Concept",
-          "url": "#"
-        },
-        {
-          "type": "Image",
-          "title": "Details",
-          "url": "#"
-        }
-      ]
-    },
-    {
-      "id": "P-003",
-      "title_en": "HVAC Cooling Upgrade Study",
-      "title_ar": "دراسة ترقية تبريد (HVAC)",
+      "id": "makkah-warehouse-hvac",
+      "title_en": "Makkah Warehouse HVAC Upgrade",
+      "title_ar": "ترقية نظام التبريد لمستودع مكة",
       "category": "HVAC",
-      "client": "Warehouse / Operations",
-      "location": "Makkah",
+      "client": "NBCC",
+      "location": "Makkah, Saudi Arabia",
       "status": "Ongoing",
       "dates": "2025",
-      "summary_en": "Evaluation of cooling options to maintain operational temperature targets.",
-      "summary_ar": "تقييم حلول التبريد لتحقيق درجة حرارة تشغيلية مستهدفة.",
-      "scope_en": "Site survey, supplier alignment, technical clarifications, revised proposals.",
-      "scope_ar": "زيارة موقع، مواءمة المورد، استفسارات فنية، تحديث عروض.",
-      "resp_en": "Collected requirements, reviewed airflow/coverage, negotiated scope changes.",
-      "resp_ar": "جمع متطلبات، مراجعة تدفق الهواء والتغطية، تفاوض على تغييرات النطاق.",
-      "tools_en": "Excel, Site inspections, Vendor coordination",
-      "tools_ar": "Excel، زيارات موقع، تنسيق موردين",
+      "featured": true,
+      "summary_en": "Technical and commercial evaluation of warehouse cooling upgrade options to maintain internal temperature at or below 25°C.",
+      "summary_ar": "تقييم فني وتجاري لخيارات تطوير تبريد المستودع بهدف المحافظة على درجة حرارة داخلية 25°م أو أقل.",
+      "scope_en": "Site inspection, airflow and capacity review, technical correspondence, offer revision control, and supplier coordination.",
+      "scope_ar": "معاينة موقع، مراجعة تدفق الهواء والسعة، مراسلات فنية، ضبط تحديثات العروض، والتنسيق مع المورد.",
+      "resp_en": "Managed the replacement and upgrade study from conventional desert coolers toward higher-performance cooling solutions, including technical clarification with Windmason Arabia.",
+      "resp_ar": "إدارة دراسة الاستبدال والترقية من المكيفات الصحراوية التقليدية إلى حلول تبريد أعلى أداء، مع الاستيضاح الفني مع Windmason Arabia.",
+      "tools_en": "Excel, site inspections, supplier coordination, technical comparison matrices",
+      "tools_ar": "Excel، زيارات موقع، تنسيق الموردين، جداول مقارنة فنية",
       "tags": [
         "HVAC",
-        "Evaluation",
-        "Cost"
+        "Warehouse",
+        "Technical Review",
+        "Supplier Coordination"
       ],
-      "featured": false,
-      "media": [
+      "gallery": [
         {
-          "type": "PDF",
-          "title": "Technical Comparison",
-          "url": "#"
+          "title_en": "Existing warehouse cooling condition",
+          "title_ar": "الوضع الحالي لتبريد المستودع",
+          "caption_en": "Assessment of the existing cooling arrangement and its limitations against operational demand.",
+          "caption_ar": "تقييم وضع التبريد الحالي وحدوده مقارنة بالطلب التشغيلي.",
+          "image": ""
+        },
+        {
+          "title_en": "Option comparison and performance review",
+          "title_ar": "مقارنة الخيارات ومراجعة الأداء",
+          "caption_en": "Comparison of desert coolers versus IDEC-oriented solutions based on temperature target, coverage, and practicality.",
+          "caption_ar": "مقارنة بين المكيفات الصحراوية والحلول الأقرب لـ IDEC بناءً على درجة الحرارة المستهدفة والتغطية والعملية.",
+          "image": ""
         }
       ]
     },
     {
-      "id": "P-004",
-      "title_en": "Fire Safety Scope Review",
-      "title_ar": "مراجعة نطاق السلامة من الحريق",
-      "category": "FireSafety",
-      "client": "Industrial Site",
-      "location": "Jeddah",
-      "status": "Concept",
-      "dates": "2025",
-      "summary_en": "Initial scope definition and compliance considerations for fire safety works.",
-      "summary_ar": "تحديد نطاق مبدئي واعتبارات مطابقة لأعمال السلامة من الحريق.",
-      "scope_en": "Define scope items, identify interfaces, prepare RFQ-ready list.",
-      "scope_ar": "تحديد بنود النطاق، تحديد الواجهات، تجهيز قائمة RFQ.",
-      "resp_en": "Drafted scope and clarified requirements with stakeholders.",
-      "resp_ar": "صياغة نطاق وتوضيح المتطلبات مع الجهات.",
-      "tools_en": "Excel, Code references, Site walkthroughs",
-      "tools_ar": "Excel، مراجع أكواد، جولات موقع",
+      "id": "factory-branding-facades",
+      "title_en": "Factory Branding & Entrance Enhancement",
+      "title_ar": "تحسين واجهات المصنع والمداخل والهوية",
+      "category": "Branding",
+      "client": "NBCC",
+      "location": "Jeddah, Saudi Arabia",
+      "status": "Completed / Ongoing by scope",
+      "dates": "2025–2026",
+      "featured": true,
+      "summary_en": "Visual enhancement scopes for factory entrances, internal walkways, logo placement, and visitor-facing architectural identity.",
+      "summary_ar": "نطاقات تحسين بصري لمداخل المصنع والممرات الداخلية وتوزيع الشعارات والهوية المعمارية الموجهة للزوار.",
+      "scope_en": "Branding integration, façade study, signage positioning, entrance image upgrades, and presentation-ready visuals.",
+      "scope_ar": "دمج الهوية البصرية، دراسة الواجهات، تموضع اللوحات، تحسين صورة المداخل، وإخراج عروض جاهزة للإدارة.",
+      "resp_en": "Prepared design concepts and coordinated practical implementation requirements while preserving brand readability and site constraints.",
+      "resp_ar": "إعداد مفاهيم تصميمية وتنسيق متطلبات التنفيذ العملية مع الحفاظ على وضوح الهوية وقيود الموقع.",
+      "tools_en": "SketchUp, Twinmotion, AutoCAD, Photoshop",
+      "tools_ar": "SketchUp، Twinmotion، AutoCAD، Photoshop",
       "tags": [
-        "NFPA",
-        "Scope",
-        "RFQ"
+        "Branding",
+        "Façades",
+        "Entrances",
+        "Presentation"
       ],
-      "featured": false,
-      "media": []
+      "gallery": [
+        {
+          "title_en": "Logo placement strategy",
+          "title_ar": "استراتيجية توزيع الشعارات",
+          "caption_en": "Visual studies to improve logo visibility and proportion across factory façades and gates.",
+          "caption_ar": "دراسات بصرية لتحسين ظهور الشعار ونسبته على واجهات المصنع والبوابات.",
+          "image": ""
+        },
+        {
+          "title_en": "Visitor and staff entry image",
+          "title_ar": "صورة مداخل الزوار والموظفين",
+          "caption_en": "Design direction for more organized and representative entry points aligned with the company image.",
+          "caption_ar": "توجه تصميمي لمداخل أكثر تنظيمًا وتمثيلًا لصورة الشركة.",
+          "image": ""
+        }
+      ]
     },
     {
-      "id": "P-005",
-      "title_en": "Residential Villas Complex",
-      "title_ar": "مجمع فلل سكنية",
-      "category": "Architecture",
-      "client": "Private",
+      "id": "agriflex-evaluation",
+      "title_en": "Automated Raw Material System Evaluation",
+      "title_ar": "تقييم نظام المواد الخام الآلي",
+      "category": "Industrial",
+      "client": "NBCC New Factory",
       "location": "Saudi Arabia",
-      "status": "Concept",
-      "dates": "2024–2025",
-      "summary_en": "Concept design for a residential villas complex featuring contemporary forms and open spaces.",
-      "summary_ar": "تصميم مفهوم لمجمع فلل سكنية بأشكال معاصرة ومساحات مفتوحة.",
-      "scope_en": "Master planning, architectural design, 3D modeling, and presentation graphics.",
-      "scope_ar": "تخطيط عام، تصميم معماري، نمذجة ثلاثية الأبعاد، وعرض رسومي.",
-      "resp_en": "Developed design concept, produced architectural drawings and visualizations, and coordinated layout options.",
-      "resp_ar": "تطوير مفهوم التصميم، إعداد رسومات هندسية وإظهار بصري، وتنسيق خيارات التخطيط.",
-      "tools_en": "Revit, AutoCAD, SketchUp, Twinmotion",
-      "tools_ar": "Revit، AutoCAD، SketchUp، Twinmotion",
-      "tags": ["Residential", "Architecture", "3D Design"],
+      "status": "Technical / Commercial Evaluation",
+      "dates": "2025",
       "featured": false,
-      "media": []
+      "summary_en": "Review of the Agriflex offer for automated raw material storage, transport, dosing, and cooling system for the new factory.",
+      "summary_ar": "مراجعة عرض Agriflex لنظام آلي لتخزين ونقل وجرعات وتبريد المواد الخام للمصنع الجديد.",
+      "scope_en": "Offer review, BOQ understanding, option comparison, and coordination around design intent and system completeness.",
+      "scope_ar": "مراجعة العرض، فهم BOQ، مقارنة الخيارات، والتنسيق حول نية التصميم واكتمال النظام.",
+      "resp_en": "Analyzed system content and configuration including silos, transport lines, dosing, control, and optional stainless steel components.",
+      "resp_ar": "تحليل محتوى النظام وتكوينه بما يشمل الصوامع وخطوط النقل والجرعات والتحكم والخيارات الإضافية من الستانلس ستيل.",
+      "tools_en": "Technical offers, BOQ analysis, process review",
+      "tools_ar": "عروض فنية، تحليل BOQ، مراجعة العمليات",
+      "tags": [
+        "Factory",
+        "Automation",
+        "Process",
+        "BOQ Review"
+      ],
+      "gallery": [
+        {
+          "title_en": "System overview and process flow",
+          "title_ar": "نظرة عامة على النظام وتدفق العملية",
+          "caption_en": "Evaluation of integrated raw material storage and dosing flow for flour, sugar, glucose, and palm oil.",
+          "caption_ar": "تقييم تكامل تخزين وجرعات المواد الخام للدقيق والسكر والجلوكوز وزيت النخيل.",
+          "image": ""
+        }
+      ]
     },
     {
-      "id": "P-006",
-      "title_en": "Commercial Residential Mixed-Use Building",
-      "title_ar": "مبنى متعدد الاستخدامات (تجاري/سكني)",
-      "category": "Architecture",
-      "client": "Private",
-      "location": "Jeddah",
-      "status": "Concept",
+      "id": "princess-muna-complex",
+      "title_en": "Princess Muna Commercial Complex",
+      "title_ar": "مجمع الأميرة منى التجاري",
+      "category": "Interior",
+      "client": "Salah Al-Zughaybi Group",
+      "location": "Riyadh, Saudi Arabia",
+      "status": "Completed / Design Package",
       "dates": "2024–2025",
-      "summary_en": "Mixed-use building concept combining commercial spaces and residential units in Jeddah.",
-      "summary_ar": "تصميم مبنى متعدد الاستخدام يجمع بين مساحات تجارية ووحدات سكنية في جدة.",
-      "scope_en": "Architectural concept design, massing studies, space planning, and elevations.",
-      "scope_ar": "تصميم معماري مفهوم، دراسات كتلية، تخطيط مساحات، وواجهات.",
-      "resp_en": "Prepared concept drawings, studied mixed-use program, and delivered 3D models and visuals.",
-      "resp_ar": "إعداد رسومات مبدئية، دراسة برامج مختلطة، وتقديم نماذج ثلاثية الأبعاد وإظهار بصري.",
-      "tools_en": "Revit, SketchUp, AutoCAD, Twinmotion",
-      "tools_ar": "Revit، SketchUp، AutoCAD، Twinmotion",
-      "tags": ["Commercial", "Residential", "Mixed Use"],
-      "featured": false,
-      "media": []
+      "featured": true,
+      "summary_en": "Interior design and executive branding works for a commercial complex, supported with 3D conceptual visualization.",
+      "summary_ar": "تصميم داخلي وأعمال هوية تنفيذية لمجمع تجاري، مدعومة بإخراج ثلاثي الأبعاد تصوري.",
+      "scope_en": "Interior design development, curtains and office branding works, concept visualization, and presentation outputs.",
+      "scope_ar": "تطوير التصميم الداخلي، أعمال الستائر والهوية المكتبية، الإخراج التصوري، ومخرجات العرض.",
+      "resp_en": "Produced coordinated design visuals and supported decision-making through presentation-quality concept packages.",
+      "resp_ar": "إنتاج إخراجات تصميمية منسقة ودعم اتخاذ القرار من خلال حزم مفاهيم بجودة عرض عالية.",
+      "tools_en": "SketchUp, Twinmotion, Photoshop, AutoCAD",
+      "tools_ar": "SketchUp، Twinmotion، Photoshop، AutoCAD",
+      "tags": [
+        "Commercial",
+        "Interior",
+        "3D Visualization",
+        "Branding"
+      ],
+      "gallery": [
+        {
+          "title_en": "Interior mood and material direction",
+          "title_ar": "توجه المزاج الداخلي والخامات",
+          "caption_en": "Concept images focusing on interior character, finishes, and executive-level presentation quality.",
+          "caption_ar": "صور مفهومية تركز على الطابع الداخلي والخامات وجودة الإظهار المناسبة للمستوى التنفيذي.",
+          "image": ""
+        }
+      ]
     },
     {
-      "id": "P-007",
-      "title_en": "Abuan Square (Makkah Al-Awali)",
-      "title_ar": "ساحة أبوأن، مكة العوالي",
+      "id": "shams-riyadh-development",
+      "title_en": "Shams Riyadh Development Studies",
+      "title_ar": "دراسات مشروع شمس الرياض",
       "category": "Architecture",
-      "client": "Municipality",
-      "location": "Makkah Al-Awali",
-      "status": "Concept",
+      "client": "Shams Riyadh Development",
+      "location": "Riyadh, Saudi Arabia",
+      "status": "Design Study",
+      "dates": "2024–2025",
+      "featured": true,
+      "summary_en": "3D massing and planning studies for mixed-use plots, parking layout, circulation, accessibility, and sustainability-oriented zoning.",
+      "summary_ar": "دراسات كتلية وتخطيطية ثلاثية الأبعاد لقطع متعددة الاستخدام، مع مواقف سيارات وحركة ووصولية وزونينغ موجه للاستدامة.",
+      "scope_en": "Massing for plots 7–16, top-view rendered outputs, parking layout, circulation analysis, and sustainable landscaping proposals.",
+      "scope_ar": "كتل لمخططات 7–16، إخراجات علويّة عالية الجودة، تخطيط مواقف، تحليل الحركة، ومقترحات تنسيق مستدامة.",
+      "resp_en": "Prepared analytical and visual material to support planning decisions and communicate mixed-use development potential.",
+      "resp_ar": "إعداد مواد تحليلية وبصرية لدعم قرارات التخطيط وإظهار إمكانات التطوير متعدد الاستخدام.",
+      "tools_en": "SketchUp, Photoshop, 2D/3D planning tools",
+      "tools_ar": "SketchUp، Photoshop، أدوات تخطيط ثنائية وثلاثية الأبعاد",
+      "tags": [
+        "Mixed Use",
+        "Urban Planning",
+        "Parking",
+        "Sustainability"
+      ],
+      "gallery": [
+        {
+          "title_en": "Mixed-use massing study",
+          "title_ar": "دراسة الكتل متعددة الاستخدام",
+          "caption_en": "Aerial and volumetric studies used to test land-use balance, massing relationships, and movement logic.",
+          "caption_ar": "دراسات علوية وحجمية لاختبار توازن الاستخدامات وعلاقات الكتل ومنطق الحركة.",
+          "image": ""
+        },
+        {
+          "title_en": "Parking and circulation layout",
+          "title_ar": "تخطيط المواقف والحركة",
+          "caption_en": "Functional layout work to organize parking supply, entry logic, and accessible movement.",
+          "caption_ar": "أعمال تخطيط وظيفي لتنظيم المواقف ومنطق الدخول والحركة الميسرة.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "abuan-square",
+      "title_en": "Abuan Square – Makkah Al-Awali",
+      "title_ar": "ساحة أبوأن – مكة العوالي",
+      "category": "Architecture",
+      "client": "Concept / Public Realm",
+      "location": "Makkah, Saudi Arabia",
+      "status": "Concept Design",
       "dates": "2024",
-      "summary_en": "Design proposal for a public plaza in the Al-Awali district of Makkah featuring open seating, landscaping, and retail spaces.",
-      "summary_ar": "مقترح تصميم لساحة عامة في حي العوالي بمكة يتضمن جلسات مفتوحة، مناظر طبيعية، ومساحات تجارية.",
-      "scope_en": "Site analysis, conceptual design, public space planning, landscape design, and 3D visualization.",
-      "scope_ar": "تحليل موقع، تصميم مبدئي، تخطيط مساحة عامة، تصميم مناظر طبيعية، ونمذجة ثلاثية الأبعاد.",
-      "resp_en": "Developed concept layout, prepared illustrative plans and sections, and created renderings.",
-      "resp_ar": "تطوير تخطيط مبدئي، إعداد مخططات ومقاطع توضيحية، وإنشاء عروض مرئية.",
+      "featured": false,
+      "summary_en": "Public plaza concept with seating, landscape elements, and retail-friendly open-space planning.",
+      "summary_ar": "تصور لساحة عامة تضم جلسات وعناصر تنسيق مواقع وتخطيط مساحات مفتوحة داعمة للأنشطة التجارية.",
+      "scope_en": "Site analysis, conceptual design, public space planning, landscape direction, and 3D visualization.",
+      "scope_ar": "تحليل موقع، تصميم مفهومي، تخطيط مساحة عامة، توجيه تنسيق مواقع، وإخراج ثلاثي الأبعاد.",
+      "resp_en": "Developed the concept layout, illustrations, sections, and render-oriented presentation material.",
+      "resp_ar": "تطوير تخطيط الفكرة والرسومات التوضيحية والمقاطع ومواد العرض المعتمدة على الإظهار.",
       "tools_en": "Revit, AutoCAD, Twinmotion, Photoshop",
       "tools_ar": "Revit، AutoCAD، Twinmotion، Photoshop",
-      "tags": ["Urban Design", "Public Space", "Plaza"],
-      "featured": false,
-      "media": []
+      "tags": [
+        "Public Space",
+        "Plaza",
+        "Landscape",
+        "Concept"
+      ],
+      "gallery": [
+        {
+          "title_en": "Public plaza image",
+          "title_ar": "صورة الساحة العامة",
+          "caption_en": "Concept visuals aimed at organizing activity, seating, and public identity in the plaza.",
+          "caption_ar": "إخراجات مفهومية تهدف لتنظيم النشاط والجلسات والهوية العامة للساحة.",
+          "image": ""
+        }
+      ]
     },
     {
-      "id": "P-008",
-      "title_en": "Dakka Plaza (Makkah Al-Awali)",
-      "title_ar": "دكة بلازا، مكة العوالي",
+      "id": "dakka-plaza",
+      "title_en": "Dakka Plaza – Makkah Al-Awali",
+      "title_ar": "دكة بلازا – مكة العوالي",
       "category": "Architecture",
       "client": "Private",
-      "location": "Makkah Al-Awali",
-      "status": "Concept",
+      "location": "Makkah, Saudi Arabia",
+      "status": "Concept Design",
       "dates": "2024",
-      "summary_en": "Concept design for an open-air plaza with retail arcades and cafes in the Al-Awali district of Makkah.",
-      "summary_ar": "تصميم مبدئي لساحة مفتوحة بها محال تجارية ومقاهي في حي العوالي بمكة.",
-      "scope_en": "Conceptual design, layout planning, elevations, and 3D visualization.",
-      "scope_ar": "تصميم مبدئي، تخطيط توزيع المساحات، واجهات، وعرض ثلاثي الأبعاد.",
-      "resp_en": "Developed conceptual massing, produced architectural plans and renders, and coordinated design narrative.",
-      "resp_ar": "تطوير كتل مبدئية، إعداد خطط هندسية وعروض مرئية، وتنسيق قصة التصميم.",
+      "featured": false,
+      "summary_en": "Open-air plaza concept with retail arcades and cafés in a walkable mixed-use environment.",
+      "summary_ar": "تصور لساحة مفتوحة تضم أروقة تجارية ومقاهي ضمن بيئة قابلة للمشي ومتعددة الأنشطة.",
+      "scope_en": "Concept design, layout planning, elevations, and 3D visualization.",
+      "scope_ar": "تصميم مفهومي، تخطيط توزيع، واجهات، وإخراج ثلاثي الأبعاد.",
+      "resp_en": "Created concept massing, plans, renders, and coordinated the overall design narrative.",
+      "resp_ar": "إنشاء الكتل المبدئية والمخططات والإخراجات وتنسيق السرد التصميمي العام.",
       "tools_en": "Revit, AutoCAD, SketchUp, Twinmotion",
       "tools_ar": "Revit، AutoCAD، SketchUp، Twinmotion",
-      "tags": ["Plaza", "Retail", "Urban Design"],
+      "tags": [
+        "Retail",
+        "Plaza",
+        "Urban",
+        "Concept"
+      ],
+      "gallery": [
+        {
+          "title_en": "Retail arcade concept",
+          "title_ar": "مفهوم الأروقة التجارية",
+          "caption_en": "Concept imagery exploring retail rhythm, pedestrian experience, and outdoor gathering character.",
+          "caption_ar": "إخراج مفهومي يستكشف إيقاع الأنشطة التجارية وتجربة المشاة وطابع التجمع الخارجي.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "abdurllah-palace",
+      "title_en": "Prince Abdullah Palace – Abhur",
+      "title_ar": "قصر الأمير عبد الله – أبحر",
+      "category": "Architecture",
+      "client": "Private",
+      "location": "Jeddah, Saudi Arabia",
+      "status": "Design Involvement",
+      "dates": "2024",
       "featured": false,
-      "media": []
+      "summary_en": "Architectural involvement within a high-end private project under Salah Al-Zughaybi Group.",
+      "summary_ar": "مشاركة معمارية ضمن مشروع خاص عالي المستوى تحت مجموعة صلاح الزغيبي.",
+      "scope_en": "Architectural support, design coordination, and visual communication inputs.",
+      "scope_ar": "دعم معماري وتنسيق تصميمي ومدخلات عرض بصري.",
+      "resp_en": "Supported design development and coordination tasks for a private palace project.",
+      "resp_ar": "دعم تطوير التصميم وأعمال التنسيق لمشروع قصر خاص.",
+      "tools_en": "AutoCAD, 3D visualization support",
+      "tools_ar": "AutoCAD، دعم الإظهار الثلاثي",
+      "tags": [
+        "Private",
+        "Luxury",
+        "Architecture"
+      ],
+      "gallery": [
+        {
+          "title_en": "Private palace design package",
+          "title_ar": "حزمة تصميم القصر الخاص",
+          "caption_en": "Architectural coordination and presentation support for a premium residential project.",
+          "caption_ar": "دعم تنسيقي ومعروضات معمارية لمشروع سكني فاخر.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "residential-villas",
+      "title_en": "Residential Villas Development",
+      "title_ar": "تطوير فلل سكنية",
+      "category": "Architecture",
+      "client": "Real Estate Development",
+      "location": "Jeddah & Makkah, Saudi Arabia",
+      "status": "Completed / Multiple Packages",
+      "dates": "2022–2023",
+      "featured": false,
+      "summary_en": "Architectural design work for villas within residential compounds and private developments.",
+      "summary_ar": "أعمال تصميم معماري لفلل ضمن مجمعات سكنية وتطويرات خاصة.",
+      "scope_en": "Villa design, permit-ready drawing support, and residential planning packages.",
+      "scope_ar": "تصميم فلل، دعم رسومات التراخيص، وحزم تخطيط سكنية.",
+      "resp_en": "Worked on villa design scopes during real estate development assignments in Jeddah and Makkah.",
+      "resp_ar": "العمل على نطاقات تصميم فلل خلال مهام التطوير العقاري في جدة ومكة.",
+      "tools_en": "AutoCAD, Revit, architectural detailing",
+      "tools_ar": "AutoCAD، Revit، تفاصيل معمارية",
+      "tags": [
+        "Residential",
+        "Villas",
+        "Planning"
+      ],
+      "gallery": [
+        {
+          "title_en": "Villa planning and elevations",
+          "title_ar": "تخطيط الفلل والواجهات",
+          "caption_en": "Residential design packages balancing functional layout and market-ready presentation.",
+          "caption_ar": "حزم تصميم سكني توازن بين التوزيع الوظيفي والعرض المناسب للسوق.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "id": "saud-boulevard",
+      "title_en": "Saud Boulevard Development",
+      "title_ar": "مشروع السعود بوليفارد",
+      "category": "Architecture",
+      "client": "Al-Ittihad & Al-Takaful Real Estate Development",
+      "location": "Saudi Arabia",
+      "status": "Project Involvement",
+      "dates": "2022–2023",
+      "featured": false,
+      "summary_en": "Participation in a commercial development project under real estate development workstream.",
+      "summary_ar": "مشاركة في مشروع تطوير تجاري ضمن مسار التطوير العقاري.",
+      "scope_en": "Design support, planning input, and coordination tasks.",
+      "scope_ar": "دعم تصميمي ومدخلات تخطيطية وأعمال تنسيق.",
+      "resp_en": "Contributed to design-related work within a broader commercial development program.",
+      "resp_ar": "المساهمة في أعمال مرتبطة بالتصميم ضمن برنامج تطوير تجاري أوسع.",
+      "tools_en": "AutoCAD, planning coordination",
+      "tools_ar": "AutoCAD، تنسيق تخطيطي",
+      "tags": [
+        "Commercial",
+        "Development",
+        "Planning"
+      ],
+      "gallery": [
+        {
+          "title_en": "Commercial development concept",
+          "title_ar": "مفهوم التطوير التجاري",
+          "caption_en": "Support work for concept and planning within a larger boulevard-style development project.",
+          "caption_ar": "أعمال دعم للمفهوم والتخطيط ضمن مشروع تطويري بطابع بوليفارد.",
+          "image": ""
+        }
+      ]
     }
   ]
 }

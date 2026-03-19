@@ -1,1302 +1,651 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Portfolio website" />
-  <title>Portfolio | Raghdan</title>
-
-  <!--
-    This file contains the complete portfolio website generated for the user.
-    It is largely identical to the HTML delivered earlier, but with one
-    important difference: the project data is no longer hard‑coded inside
-    the script.  Instead, project information is loaded on demand from
-    a separate JSON file (projects.json) at runtime.  This makes it
-    simple to add, remove or modify projects without touching the HTML.
-    Simply edit projects.json in the same directory and the site will
-    automatically display the updated list, grouped by category.
-  -->
+  <title>Raghdan Bakhsh | Portfolio</title>
+  <meta name="description" content="Portfolio website for Raghdan Bakhsh - Project Management Engineer & Architect." />
   <style>
     :root{
-      --bg:#0b0f17; --card:#101827; --muted:#94a3b8; --text:#e5e7eb;
-      --border:rgba(148,163,184,.18);
-      --accent:#60a5fa; --accent2:#22c55e; --danger:#ef4444;
-      --shadow: 0 16px 50px rgba(0,0,0,.45);
-      --radius:18px;
+      --bg:#0b1020; --panel:#11192d; --soft:#18233c; --line:rgba(255,255,255,.10);
+      --text:#eef3ff; --muted:#a8b4d1; --brand:#78a7ff; --brand2:#56d39a; --warn:#ffb86b;
+      --radius:20px; --shadow:0 20px 60px rgba(0,0,0,.30);
+      --container:min(1180px, calc(100vw - 32px));
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background: radial-gradient(1200px 700px at 20% -10%, rgba(96,165,250,.25), transparent 55%),
-                  radial-gradient(900px 600px at 90% 5%, rgba(34,197,94,.18), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      line-height:1.55;
-    }
-    a{color:inherit; text-decoration:none}
-    img{max-width:100%; display:block}
-    .container{max-width:1100px; margin:0 auto; padding:24px}
-    .pill{
-      display:inline-flex; gap:10px; align-items:center;
-      padding:10px 12px; border:1px solid var(--border);
-      border-radius:999px; background:rgba(255,255,255,.03);
-      color:var(--muted); font-size:13px;
-    }
-    .topbar{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(11,15,23,.6);
-      border-bottom:1px solid var(--border);
-    }
-    .topbar-inner{display:flex; align-items:center; justify-content:space-between; gap:14px}
-    .brand{display:flex; align-items:center; gap:10px}
-    .logo{
-      width:34px; height:34px; border-radius:10px;
-      background: linear-gradient(135deg, rgba(96,165,250,.9), rgba(34,197,94,.9));
-      box-shadow: 0 10px 30px rgba(96,165,250,.18);
-    }
-    .brand b{letter-spacing:.2px}
-    .nav{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
-    .nav a{
-      padding:10px 12px; border-radius:12px;
-      border:1px solid transparent; color:var(--muted); font-weight:600; font-size:14px;
-    }
-    .nav a:hover{border-color:var(--border); color:var(--text); background:rgba(255,255,255,.02)}
-    .actions{display:flex; gap:10px; align-items:center}
-    .btn{
-      cursor:pointer; border:1px solid var(--border);
-      background:rgba(255,255,255,.03); color:var(--text);
-      padding:10px 12px; border-radius:12px;
-      font-weight:700; font-size:14px;
-      display:inline-flex; align-items:center; gap:10px;
-    }
-    .btn:hover{background:rgba(255,255,255,.06)}
-    .btn.primary{
-      border-color: rgba(96,165,250,.5);
-      background: linear-gradient(180deg, rgba(96,165,250,.22), rgba(96,165,250,.10));
-    }
-    .btn.success{
-      border-color: rgba(34,197,94,.5);
-      background: linear-gradient(180deg, rgba(34,197,94,.22), rgba(34,197,94,.10));
-    }
-    .btn.danger{
-      border-color: rgba(239,68,68,.45);
-      background: linear-gradient(180deg, rgba(239,68,68,.18), rgba(239,68,68,.08));
-    }
-    .hero{padding:36px 0 10px}
-    .hero-grid{
-      display:grid; grid-template-columns: 1.35fr .65fr; gap:22px;
-      align-items:stretch;
-    }
-    @media (max-width: 880px){ .hero-grid{grid-template-columns: 1fr; } }
-    .card{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    .card-inner{padding:22px}
-    .h1{
-      margin:0 0 10px 0; font-size: clamp(28px, 3.4vw, 44px);
-      line-height:1.1; letter-spacing:.2px;
-    }
-    .sub{color:var(--muted); font-size:15px; margin:0 0 18px 0}
-    .hero-cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
-    .kpis{display:grid; grid-template-columns: repeat(2, 1fr); gap:12px}
-    .kpi{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.02);
-      border-radius:16px;
-      padding:14px;
-    }
-    .kpi b{font-size:20px}
-    .kpi span{display:block; color:var(--muted); font-size:13px; margin-top:4px}
-    section{padding:22px 0}
-    .section-title{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap:14px; margin:6px 0 14px;
-    }
-    .section-title h2{margin:0; font-size:20px}
-    .section-title p{margin:0; color:var(--muted); font-size:13px}
-    .grid{
-      display:grid; gap:14px;
-      grid-template-columns: repeat(3, 1fr);
-    }
-    @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width: 620px){ .grid{grid-template-columns: 1fr;} }
-    .tile{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      border-radius: 18px;
-      overflow:hidden;
-      transition: transform .16s ease, background .16s ease, border-color .16s ease;
-      cursor:pointer;
-    }
-    .tile:hover{transform: translateY(-2px); background: rgba(255,255,255,.045); border-color: rgba(96,165,250,.35)}
-    .thumb{
-      aspect-ratio: 16/9;
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:
-        radial-gradient(800px 300px at 20% 30%, rgba(96,165,250,.28), transparent 60%),
-        radial-gradient(900px 400px at 90% 20%, rgba(34,197,94,.22), transparent 60%),
-        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border-bottom:1px solid var(--border);
+        radial-gradient(900px 500px at 10% 0%, rgba(120,167,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(86,211,154,.15), transparent 55%),
+        linear-gradient(180deg, #0b1020 0%, #0a1020 100%);
+      color:var(--text);
     }
-    .tile-body{padding:14px}
-    .meta{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:10px}
-    .tag{
-      font-size:12px; padding:6px 10px; border-radius:999px;
-      border:1px solid var(--border);
-      color:var(--muted);
-      background: rgba(255,255,255,.02);
+    body.rtl{font-family: "IBM Plex Sans Arabic", Inter, ui-sans-serif, system-ui, sans-serif}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    .container{width:var(--container);margin:auto}
+    .topbar{
+      position:sticky;top:0;z-index:100;background:rgba(11,16,32,.82);backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line)
     }
-    .tile h3{margin:0; font-size:15px}
-    .tile p{margin:8px 0 0; color:var(--muted); font-size:13px}
-    .filters{display:flex; gap:10px; flex-wrap:wrap}
-    select,input{
-      width:auto;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      padding:10px 12px;
-      border-radius:12px;
-      outline:none;
-      font-weight:700;
-      font-size:13px;
+    .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-mark{
+      width:42px;height:42px;border-radius:14px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      box-shadow:0 12px 30px rgba(120,167,255,.25)
     }
-    input{min-width: 220px}
-    .two-col{
-      display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+    .brand h1{margin:0;font-size:16px;line-height:1.1}
+    .brand p{margin:4px 0 0;color:var(--muted);font-size:12px}
+    .nav{display:flex;gap:8px;flex-wrap:wrap}
+    .nav a,.btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);padding:11px 14px;
+      border-radius:14px;font-weight:700;font-size:14px;cursor:pointer
     }
-    @media (max-width: 880px){ .two-col{grid-template-columns: 1fr;} }
-    .list{
-      display:grid; gap:12px;
+    .btn.primary{background:linear-gradient(180deg, rgba(120,167,255,.22), rgba(120,167,255,.10));border-color:rgba(120,167,255,.35)}
+    .btn.green{background:linear-gradient(180deg, rgba(86,211,154,.22), rgba(86,211,154,.10));border-color:rgba(86,211,154,.35)}
+    .btn:hover,.nav a:hover{transform:translateY(-1px);transition:.15s}
+    .hero{padding:36px 0 22px}
+    .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}
+    .card{
+      border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:var(--radius);box-shadow:var(--shadow)
     }
-    .item{
-      border:1px solid var(--border);
-      border-radius: 16px;
-      padding:14px;
-      background: rgba(255,255,255,.02);
+    .card .inner{padding:24px}
+    .eyebrow{
+      display:inline-flex;gap:8px;align-items:center;padding:9px 12px;border-radius:999px;
+      border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);font-size:13px;font-weight:700
     }
-    .item .top{display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
-    .item b{display:block}
-    .item small{color:var(--muted); font-weight:700}
-    .muted{color:var(--muted)}
-    .skills{
-      display:flex; flex-wrap:wrap; gap:10px; margin-top:10px
+    .hero h2{font-size:clamp(34px,5vw,54px);line-height:1.06;margin:14px 0 14px}
+    .hero p.lead{font-size:16px;color:var(--muted);max-width:760px;margin:0}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .kpi{padding:16px;border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:18px}
+    .kpi strong{display:block;font-size:28px}
+    .kpi span{display:block;color:var(--muted);margin-top:6px;font-size:13px}
+    section{padding:12px 0 18px}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:0 0 14px}
+    .section-head h3{margin:0;font-size:24px}
+    .section-head p{margin:6px 0 0;color:var(--muted)}
+    .badge{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;font-weight:700}
+    .about-grid,.resume-grid,.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .chip{padding:10px 12px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line);font-size:13px;font-weight:700;color:#d9e4ff}
+    .filters{display:flex;gap:10px;flex-wrap:wrap}
+    .input,.select{
+      border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);padding:12px 14px;
+      border-radius:14px;font-weight:700;min-height:46px
     }
-    .skill{
-      border:1px solid var(--border);
-      padding:10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.02);
-      display:flex; gap:10px; align-items:center;
+    .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .project{
+      overflow:hidden;display:flex;flex-direction:column
     }
-    .dot{width:10px; height:10px; border-radius:99px; background:var(--accent)}
-    .dot.g{background:var(--accent2)}
-    .footer{
-      padding:26px 0 40px;
-      color:var(--muted);
-      border-top:1px solid var(--border);
-      margin-top:16px;
+    .project-cover{
+      aspect-ratio:16/10;border-bottom:1px solid var(--line);background:
+      radial-gradient(700px 260px at 20% 20%, rgba(120,167,255,.24), transparent 60%),
+      radial-gradient(700px 260px at 85% 20%, rgba(86,211,154,.20), transparent 60%),
+      linear-gradient(135deg,#18233c 0%, #11192d 100%);
+      display:flex;align-items:end;justify-content:start;padding:16px;position:relative;overflow:hidden
     }
-
-    /* Modal */
+    .project-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .project-cover .fallback{
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;
+      font-size:22px;font-weight:800;color:rgba(255,255,255,.9)
+    }
+    .project-body{padding:16px}
+    .project h4{margin:0;font-size:18px;line-height:1.25}
+    .project .meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+    .meta span{
+      padding:7px 10px;border-radius:999px;border:1px solid var(--line);font-size:12px;color:var(--muted);font-weight:700
+    }
+    .project p{margin:0;color:var(--muted);font-size:14px}
+    .project .actions{margin-top:14px;display:flex;gap:10px}
+    .list{display:grid;gap:12px}
+    .item{padding:16px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+    .item .top{display:flex;justify-content:space-between;gap:12px}
+    .item b{font-size:16px}
+    .item small{color:var(--muted);font-weight:700}
+    .item p{margin:10px 0 0;color:var(--muted)}
     .modal-backdrop{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(6px);
-      display:none; align-items:center; justify-content:center;
-      padding:22px; z-index:999;
+      position:fixed;inset:0;background:rgba(0,0,0,.58);display:none;align-items:center;justify-content:center;z-index:1000;padding:18px
     }
     .modal{
-      width:min(920px, 100%);
-      border:1px solid var(--border);
-      border-radius: 22px;
-      background: rgba(16,24,39,.92);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      max-height: 86vh;
-      display:flex; flex-direction:column;
+      width:min(1180px,100%);max-height:90vh;overflow:auto;border:1px solid var(--line);
+      background:#0f172a;border-radius:24px;box-shadow:var(--shadow)
     }
-    .modal-header{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
-      padding:18px 18px 12px;
-      border-bottom:1px solid var(--border);
+    .modal-head{display:flex;justify-content:space-between;gap:14px;padding:20px 20px 14px;border-bottom:1px solid var(--line)}
+    .modal-head h4{margin:0;font-size:24px}
+    .modal-head p{margin:8px 0 0;color:var(--muted)}
+    .modal-body{padding:20px}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .gallery-card{
+      border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.03)
     }
-    .modal-header h3{margin:0; font-size:18px}
-    .modal-header p{margin:8px 0 0; color:var(--muted); font-size:13px}
-    .modal-body{
-      padding:18px;
-      overflow:auto;
+    .gallery-card .img{
+      aspect-ratio:16/10;background:
+        radial-gradient(650px 220px at 20% 20%, rgba(120,167,255,.24), transparent 60%),
+        radial-gradient(650px 220px at 85% 20%, rgba(86,211,154,.20), transparent 60%),
+        linear-gradient(135deg,#18233c 0%, #11192d 100%);
+      position:relative;overflow:hidden
     }
-    .modal-grid{
-      display:grid; grid-template-columns: 1fr .9fr; gap:14px;
+    .gallery-card .img img{width:100%;height:100%;object-fit:cover}
+    .gallery-card .img .fallback{
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;text-align:center;
+      color:#fff;font-weight:800
     }
-    @media (max-width: 900px){ .modal-grid{grid-template-columns:1fr;} }
-    .modal-shot{
-      border:1px solid var(--border);
-      border-radius: 16px;
-      overflow:hidden;
-      background: rgba(255,255,255,.02);
+    .gallery-card .body{padding:14px}
+    .gallery-card h5{margin:0;font-size:16px}
+    .gallery-card p{margin:8px 0 0;color:var(--muted);font-size:14px}
+    .note{
+      padding:14px 16px;border-radius:16px;border:1px solid rgba(255,184,107,.25);background:rgba(255,184,107,.08);color:#ffd7a0
     }
-    .modal-shot .thumb{border-bottom:0}
-    .close-x{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      color:var(--text);
-      border-radius:12px;
-      padding:10px 12px;
-      cursor:pointer;
-      font-weight:900;
+    .contact-list a{display:block}
+    .footer{padding:18px 0 34px;color:var(--muted)}
+    .footer .inner{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:20px;border-top:1px solid var(--line)
     }
-    .close-x:hover{background: rgba(255,255,255,.06)}
-    .form{
-      display:grid; gap:10px;
+    @media (max-width: 980px){
+      .hero-grid,.about-grid,.resume-grid,.contact-grid,.modal-grid,.projects{grid-template-columns:1fr 1fr}
     }
-    .form label{font-size:12px; color:var(--muted); font-weight:800}
-    .form input,.form textarea{
-      width:100%;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.03);
-      color:var(--text);
-      padding:12px 12px;
-      border-radius:12px;
-      outline:none;
-      font-weight:700;
+    @media (max-width: 760px){
+      .topbar .wrap,.section-head,.item .top,.footer .inner{flex-direction:column;align-items:stretch}
+      .hero-grid,.about-grid,.resume-grid,.contact-grid,.modal-grid,.projects,.gallery{grid-template-columns:1fr}
+      .nav{justify-content:flex-start}
     }
-    textarea{min-height:110px; resize:vertical}
-    .notice{
-      border:1px solid rgba(96,165,250,.35);
-      background: rgba(96,165,250,.08);
-      padding:12px 12px;
-      border-radius: 14px;
-      color: rgba(229,231,235,.95);
-      font-size:13px;
-      display:none;
-    }
-    .notice.err{
-      border-color: rgba(239,68,68,.35);
-      background: rgba(239,68,68,.08);
-    }
-    .rtl *{letter-spacing:0}
   </style>
 </head>
-
-<body>
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <div class="container topbar-inner">
+<body class="rtl">
+  <header class="topbar">
+    <div class="container wrap">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-mark"></div>
         <div>
-          <b id="brandName">Raghdan</b>
-          <div class="pill" style="margin-top:6px" id="brandRole">Project Management Engineer & Architect</div>
+          <h1 id="brand-name">Raghdan Abdulhameed Bakhsh</h1>
+          <p id="brand-role">Project Management Engineer • Architect</p>
         </div>
       </div>
-
-      <nav class="nav" aria-label="Primary">
-        <a href="#home" data-i18n="nav_home">Home</a>
-        <a href="#about" data-i18n="nav_about">About</a>
-        <a href="#projects" data-i18n="nav_projects">Projects</a>
-        <a href="#resume" data-i18n="nav_resume">Resume</a>
-        <a href="#contact" data-i18n="nav_contact">Contact</a>
-        <a href="#admin" data-i18n="nav_admin">Admin</a>
+      <nav class="nav">
+        <a href="#about" data-i18n="nav_about">نبذة</a>
+        <a href="#projects" data-i18n="nav_projects">المشاريع</a>
+        <a href="#resume" data-i18n="nav_resume">الخبرات</a>
+        <a href="#contact" data-i18n="nav_contact">التواصل</a>
       </nav>
-
-      <div class="actions">
-        <button class="btn" id="btnLang" title="Toggle language">AR</button>
-        <a class="btn primary" id="btnCV" href="#" download data-i18n="btn_cv">Download CV</a>
-        <a class="btn success" id="btnWhatsApp" href="#" target="_blank" rel="noreferrer" data-i18n="btn_whatsapp">WhatsApp</a>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button id="lang-btn" class="btn">EN</button>
+        <a class="btn primary" href="#projects" data-i18n="view_projects">عرض المشاريع</a>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- HERO -->
-  <main id="home" class="container hero">
-    <div class="hero-grid">
-      <div class="card">
-        <div class="card-inner">
-          <div class="pill" id="heroPill" data-i18n="hero_pill">Industrial Facilities • Fit-Out • Compliance</div>
-          <h1 class="h1" id="heroTitle" data-i18n="hero_title">
-            I deliver practical execution from design to handover.
-          </h1>
-          <p class="sub" id="heroSub" data-i18n="hero_sub">
-            Portfolio of industrial and architectural work with focus on scope clarity, cost control, and compliance.
-          </p>
-          <div class="hero-cta">
-            <a class="btn primary" href="#projects" data-i18n="btn_view_projects">View Projects</a>
-            <a class="btn" href="#contact" data-i18n="btn_contact">Contact Me</a>
-            <button class="btn" id="btnCopyEmail" data-i18n="btn_copy_email">Copy Email</button>
-          </div>
-          <div style="margin-top:16px" class="pill">
-            <span id="emailText">email@example.com</span> • <span id="cityText">Jeddah, Saudi Arabia</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-inner">
-          <div class="section-title" style="margin:0 0 10px">
-            <h2 data-i18n="kpi_title">Highlights</h2>
-            <p data-i18n="kpi_note">Editable in code (data section)</p>
-          </div>
-          <div class="kpis">
-            <div class="kpi">
-              <b id="kpi1Val">+10</b>
-              <span id="kpi1Lbl" data-i18n="kpi1">Projects Delivered / Supported</span>
-            </div>
-            <div class="kpi">
-              <b id="kpi2Val">Procurement</b>
-              <span id="kpi2Lbl" data-i18n="kpi2">BOQ, RFQ, Technical Comparison</span>
-            </div>
-            <div class="kpi">
-              <b id="kpi3Val">SBC/NFPA</b>
-              <span id="kpi3Lbl" data-i18n="kpi3">Compliance & Site Coordination</span>
-            </div>
-            <div class="kpi">
-              <b id="kpi4Val">BIM/CAD</b>
-              <span id="kpi4Lbl" data-i18n="kpi4">Revit, AutoCAD, Twinmotion</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ABOUT -->
-    <section id="about">
-      <div class="section-title">
-        <div>
-          <h2 data-i18n="about_title">About</h2>
-          <p data-i18n="about_sub">Short, direct, and execution-focused.</p>
-        </div>
-        <span class="pill" id="aboutBadge" data-i18n="about_badge">Available for freelance / consulting</span>
-      </div>
-
-      <div class="two-col">
+  <main class="container">
+    <section class="hero">
+      <div class="hero-grid">
         <div class="card">
-          <div class="card-inner">
-            <p class="muted" id="aboutText" style="margin:0" data-i18n="about_text">
-              I work on industrial and architectural projects with a practical approach: define scope, control cost,
-              coordinate stakeholders, and deliver compliant results. I prepare BOQs, evaluate offers, review drawings,
-              and follow through on site until handover.
-            </p>
-            <div class="skills" id="skillsWrap"></div>
+          <div class="inner">
+            <div class="eyebrow" data-i18n="hero_eyebrow">مشاريع صناعية ومعمارية وتنفيذية</div>
+            <h2 id="hero-title" data-i18n="hero_title">واجهة رقمية تجمع خبرتي في الإدارة والتنفيذ والتصميم.</h2>
+            <p class="lead" id="hero-text" data-i18n="hero_text">هذا الموقع يجمع المشاريع المؤكدة المرتبطة بخبرتي في المصانع والمرافق والتطوير المعماري والعروض التنفيذية، مع وصف واضح لكل مشروع وهيكل جاهز لإضافة الصور الفعلية.</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#projects" data-i18n="view_projects">عرض المشاريع</a>
+              <a class="btn green" id="wa-btn" href="https://wa.me/966549040800" target="_blank" rel="noreferrer">WhatsApp</a>
+              <a class="btn" id="email-btn" href="mailto:iraghdan@gmail.com">iraghdan@gmail.com</a>
+            </div>
           </div>
         </div>
-
         <div class="card">
-          <div class="card-inner">
-            <div class="section-title" style="margin:0 0 10px">
-              <h2 data-i18n="toolbox_title">Toolbox</h2>
-              <p data-i18n="toolbox_sub">Core tools & workstreams</p>
-            </div>
-            <div class="list" id="toolboxList"></div>
+          <div class="inner">
+            <div class="kpis" id="kpis"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-      <div class="section-title">
+    <section id="about">
+      <div class="section-head">
         <div>
-          <h2 data-i18n="projects_title">Projects</h2>
-          <p data-i18n="projects_sub">Filter by category and open any project for full details.</p>
+          <h3 data-i18n="about_title">نبذة</h3>
+          <p data-i18n="about_sub">مختصر مهني مباشر يعكس الدور الحقيقي.</p>
+        </div>
+        <div class="badge" data-i18n="about_badge">مهيأ للإدارة والعرض على العملاء</div>
+      </div>
+      <div class="about-grid">
+        <div class="card">
+          <div class="inner">
+            <p id="about-text"></p>
+            <div class="skills" id="skills"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="inner">
+            <div class="list" id="toolbox"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <div>
+          <h3 data-i18n="projects_title">المشاريع</h3>
+          <p data-i18n="projects_sub">بطاقات منظمة مع وصف المشروع وهيكل صور قابل للتطوير.</p>
         </div>
         <div class="filters">
-          <select id="categoryFilter" aria-label="Category filter"></select>
-          <input id="searchInput" type="search" placeholder="Search..." aria-label="Search projects" />
+          <select id="category-filter" class="select"></select>
+          <input id="search-input" class="input" type="search" />
         </div>
       </div>
-
-      <div class="grid" id="projectsGrid" aria-live="polite"></div>
+      <div class="note" id="images-note"></div>
+      <div style="height:14px"></div>
+      <div class="projects" id="projects-grid"></div>
     </section>
 
-    <!-- RESUME -->
     <section id="resume">
-      <div class="section-title">
+      <div class="section-head">
         <div>
-          <h2 data-i18n="resume_title">Resume</h2>
-          <p data-i18n="resume_sub">Experience, education, and certificates.</p>
+          <h3 data-i18n="resume_title">الخبرات والمسار المهني</h3>
+          <p data-i18n="resume_sub">الملخص المهني والخبرات المؤكدة المرتبطة بالموقع.</p>
         </div>
-        <span class="pill" id="resumeBadge" data-i18n="resume_badge">PDF CV downloadable</span>
       </div>
-
-      <div class="two-col">
-        <div class="card">
-          <div class="card-inner">
-            <h3 style="margin:0 0 10px" data-i18n="exp_title">Experience</h3>
-            <div class="list" id="expList"></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-inner">
-            <h3 style="margin:0 0 10px" data-i18n="edu_title">Education & Certificates</h3>
-            <div class="list" id="eduList"></div>
-            <div style="height:12px"></div>
-            <div class="list" id="certList"></div>
-          </div>
-        </div>
+      <div class="resume-grid">
+        <div class="card"><div class="inner"><div class="list" id="experience-list"></div></div></div>
+        <div class="card"><div class="inner">
+          <div class="list" id="education-list"></div>
+          <div style="height:12px"></div>
+          <div class="list" id="cert-list"></div>
+        </div></div>
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
-      <div class="section-title">
+      <div class="section-head">
         <div>
-          <h2 data-i18n="contact_title">Contact</h2>
-          <p data-i18n="contact_sub">Send a message and I’ll get back to you.</p>
+          <h3 data-i18n="contact_title">التواصل</h3>
+          <p data-i18n="contact_sub">روابط مباشرة للاستخدام السريع.</p>
         </div>
-        <span class="pill" id="contactPill">email@example.com</span>
       </div>
-
-      <div class="two-col">
-        <div class="card">
-          <div class="card-inner">
-            <div class="notice" id="contactNotice"></div>
-
-            <form class="form" id="contactForm">
-              <div>
-                <label data-i18n="f_name">Full name</label>
-                <input name="name" required placeholder="Your name" />
-              </div>
-              <div>
-                <label data-i18n="f_email">Email</label>
-                <input name="email" type="email" required placeholder="name@email.com" />
-              </div>
-              <div>
-                <label data-i18n="f_subject">Subject</label>
-                <input name="subject" required placeholder="Project / Proposal / Meeting" />
-              </div>
-              <div>
-                <label data-i18n="f_message">Message</label>
-                <textarea name="message" required placeholder="Write your message..."></textarea>
-              </div>
-              <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
-                <button class="btn primary" type="submit" data-i18n="f_send">Send</button>
-                <button class="btn" type="button" id="btnCopyPhone" data-i18n="btn_copy_phone">Copy Phone</button>
-                <a class="btn success" id="btnMailTo" href="#" data-i18n="btn_email">Email</a>
-              </div>
-              <p class="muted" style="margin:6px 0 0; font-size:12px" data-i18n="contact_note">
-                This demo form uses mailto/WhatsApp (no server). Connect to your backend when ready.
-              </p>
-            </form>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-inner">
-            <h3 style="margin:0 0 10px" data-i18n="social_title">Links</h3>
-            <div class="list" id="socialList"></div>
-
-            <div style="height:12px"></div>
-
-            <h3 style="margin:0 0 10px" data-i18n="services_title">Services</h3>
-            <div class="list" id="servicesList"></div>
-          </div>
-        </div>
+      <div class="contact-grid">
+        <div class="card"><div class="inner">
+          <div class="list contact-list" id="contact-list"></div>
+        </div></div>
+        <div class="card"><div class="inner">
+          <div class="list" id="services-list"></div>
+        </div></div>
       </div>
     </section>
 
-    <!-- ADMIN -->
-    <section id="admin">
-      <div class="section-title">
-        <div>
-          <h2 data-i18n="admin_title">Admin</h2>
-          <p data-i18n="admin_sub">Upload a projects JSON file to populate the portfolio.</p>
-        </div>
+    <footer class="footer">
+      <div class="inner">
+        <div>© <span id="year"></span> Raghdan Abdulhameed Bakhsh</div>
+        <div id="footer-note">GitHub Pages-ready portfolio with bilingual interface.</div>
       </div>
-      <div class="card">
-        <div class="card-inner">
-          <form class="form" id="uploadForm">
-            <div>
-              <label data-i18n="admin_file">Projects JSON file</label>
-              <input id="projectsFile" type="file" accept=".json" required />
-            </div>
-            <button class="btn primary" type="submit" data-i18n="admin_upload">Upload</button>
-          </form>
-          <div class="notice" id="uploadNotice"></div>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">
-      <div class="container" style="padding:0">
-        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; align-items:center">
-          <span>© <span id="year"></span> <span id="footerName">Raghdan</span></span>
-          <span class="pill" id="footerNote" data-i18n="footer_note">Built as a single-file portfolio (easy to host)</span>
-        </div>
-      </div>
-    </div>
+    </footer>
   </main>
 
-  <!-- MODAL -->
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Project details">
+  <div class="modal-backdrop" id="modal-backdrop">
     <div class="modal">
-      <div class="modal-header">
+      <div class="modal-head">
         <div>
-          <h3 id="modalTitle">Project</h3>
-          <p id="modalMeta">Category • Location • Status</p>
+          <h4 id="modal-title"></h4>
+          <p id="modal-meta"></p>
         </div>
-        <button class="close-x" id="modalClose">✕</button>
+        <button class="btn" id="modal-close">✕</button>
       </div>
       <div class="modal-body">
         <div class="modal-grid">
-          <div class="modal-shot">
-            <div class="thumb" id="modalThumb"></div>
-          </div>
-          <div>
-            <div class="pill" id="modalTags" style="display:flex; flex-wrap:wrap; gap:8px"></div>
-            <div style="height:10px"></div>
-            <div class="item">
-              <b data-i18n="m_summary">Summary</b>
-              <div class="muted" id="modalSummary" style="margin-top:6px"></div>
-            </div>
-            <div style="height:10px"></div>
-            <div class="item">
-              <b data-i18n="m_scope">Scope</b>
-              <div class="muted" id="modalScope" style="margin-top:6px"></div>
-            </div>
-            <div style="height:10px"></div>
-            <div class="item">
-              <b data-i18n="m_resp">Responsibilities</b>
-              <div class="muted" id="modalResp" style="margin-top:6px"></div>
-            </div>
-            <div style="height:10px"></div>
-            <div class="item">
-              <b data-i18n="m_tools">Tools</b>
-              <div class="muted" id="modalTools" style="margin-top:6px"></div>
-            </div>
-            <div style="height:12px"></div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap">
-              <a class="btn primary" id="modalAction" href="#contact" data-i18n="m_cta">Discuss this project</a>
-              <button class="btn" id="modalCopyTitle" data-i18n="m_copy">Copy project title</button>
-            </div>
-          </div>
-        </div>
-
-        <div style="height:14px"></div>
-        <div class="item">
-          <b data-i18n="m_media">Media</b>
-          <div class="muted" style="font-size:12px; margin-top:6px" data-i18n="m_media_note">
-            Add real images/links in the data section. This demo shows placeholders.
-          </div>
-          <div class="grid" id="modalMedia" style="margin-top:12px"></div>
+          <div class="card"><div class="inner">
+            <div class="list" id="modal-info"></div>
+          </div></div>
+          <div class="card"><div class="inner">
+            <div class="gallery" id="modal-gallery"></div>
+          </div></div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    /***********************
-     * 1) EDIT YOUR DATA
-     ***********************/
-    const DATA = {
-      profile: {
-        fullName: "Raghdan Abdulhameed Bakhsh",
-        headline: "Architect & Project Engineer | CAPM Candidate",
-        city: "Jeddah",
-        country: "Saudi Arabia",
-        email: "iraghdan@gmail.com",
-        phone: "+966 54 445 4706",
-        linkedIn: "https://linkedin.com/in/raghdan",
-        cvUrl: "RaghdanB.pdf", // link to PDF resume
-        whatsappNumber: "966544454706", // digits only
-        highlights: [
-          { value: "3+ yrs", label_en: "Industrial & Architectural Project Experience", label_ar: "خبرة مشاريع صناعية ومعمارية" },
-          { value: "10+", label_en: "Facility Upgrades & Fit-Outs", label_ar: "ترقيات وتجهيزات مرافق" },
-          { value: "Procurement", label_en: "BOQ & Cost Control", label_ar: "تسعير وضبط التكاليف" },
-          { value: "CAPM", label_en: "CAPM Candidate & SCE Member", label_ar: "مرشح CAPM وعضو الهيئة السعودية للمهندسين" },
-        ],
-        about_en:
-          "Architect and project engineer experienced in industrial facility upgrades, office fit-outs, and site coordination. I prepare BOQs, evaluate offers, manage procurement, and lead 3D modelling and visualization. As a CAPM candidate and member of the Saudi Council of Engineers, I ensure compliance and cost control from design to handover.",
-        about_ar:
-          "مهندس معماري ومهندس مشاريع بخبرة في تطوير المرافق الصناعية وتجهيز المكاتب والتنسيق بالموقع. أقوم بإعداد BOQ، ومقارنة العروض، وإدارة المشتريات، وقيادة النمذجة الثلاثية الأبعاد والإخراج البصري. كمرشح CAPM وعضو في الهيئة السعودية للمهندسين، أضمن الالتزام وضبط التكلفة من التصميم حتى التسليم.",
-        skills: [
-          { name_en:"AutoCAD", name_ar:"أوتوكاد", color:"b" },
-          { name_en:"Revit", name_ar:"ريفِت", color:"g" },
-          { name_en:"Twinmotion", name_ar:"توين موشن", color:"b" },
-          { name_en:"Lumion", name_ar:"لوميُون", color:"g" },
-          { name_en:"SAP (PR/IO/PO)", name_ar:"SAP (PR/IO/PO)", color:"b" },
-          { name_en:"MS Office", name_ar:"أوفيس", color:"g" },
-        ],
-        toolbox: [
-          { title_en:"Facility Upgrades & Fit-Out", title_ar:"ترقيات المرافق والتشطيبات", desc_en:"Plan and implement industrial facility upgrades, office fit-outs, and modernizations.", desc_ar:"تخطيط وتنفيذ ترقيات المرافق الصناعية وتشطيبات المكاتب والتحديثات." },
-          { title_en:"BOQ & Procurement Support", title_ar:"حصر الكميات ودعم المشتريات", desc_en:"Prepare BOQs, RFQ packages, compare offers, and control costs.", desc_ar:"إعداد BOQ، تجهيز طلبات عروض الأسعار، مقارنة العروض، وضبط التكاليف." },
-          { title_en:"Site Coordination & Compliance", title_ar:"التنسيق بالموقع والالتزام", desc_en:"Coordinate contractors, manage schedules, and ensure compliance with codes and safety standards.", desc_ar:"تنسيق المقاولين، إدارة الجداول، وضمان الالتزام بالأكواد ومعايير السلامة." },
-          { title_en:"3D Modeling & Visualization", title_ar:"النمذجة ثلاثية الأبعاد والإخراج", desc_en:"Develop 3D massing studies, renderings, and visual presentations to communicate design intent.", desc_ar:"إجراء دراسات كتلية ثلاثية الأبعاد، إخراج بصري، وعروض لتوضيح فكرة التصميم." }
-        ],
-        services: [
-          { title_en:"Facility Upgrade Planning & Execution", title_ar:"تخطيط وتنفيذ تطوير المرافق", desc_en:"Comprehensive planning and execution of facility upgrades and extensions.", desc_ar:"تخطيط وتنفيذ شامل لتطوير المرافق والتوسعات." },
-          { title_en:"Technical Submittal & Procurement Review", title_ar:"مراجعة الاعتمادات الفنية والمشتريات", desc_en:"Review technical submittals, analyze supplier proposals, and support procurement processes.", desc_ar:"مراجعة الاعتمادات الفنية، تحليل عروض الموردين، ودعم عمليات المشتريات." },
-          { title_en:"Project Coordination & Logistics", title_ar:"تنسيق المشروع واللوجستيات", desc_en:"Coordinate stakeholders, manage site logistics, and ensure smooth project delivery.", desc_ar:"تنسيق أصحاب المصلحة، إدارة لوجستيات الموقع، وضمان تسليم المشروع بسلاسة." },
-          { title_en:"3D Visualization & Design Development", title_ar:"النمذجة والإخراج ثلاثي الأبعاد", desc_en:"Produce 3D models, visualizations, and design documentation for presentations and approvals.", desc_ar:"إنتاج نماذج ثلاثية الأبعاد وإخراج بصري ووثائق التصميم للعرض والاعتمادات." }
-        ]
-      },
-
-      categories: [
-        "All","Industrial","Architecture","Interior","HVAC","FireSafety","Branding","Other"
+    const PROFILE = {
+      name: "Raghdan Abdulhameed Bakhsh",
+      role_en: "Project Management Engineer • Architect",
+      role_ar: "مهندس إدارة مشاريع • مهندس معماري",
+      email: "iraghdan@gmail.com",
+      whatsapp: "966549040800",
+      city_en: "Jeddah, Saudi Arabia",
+      city_ar: "جدة، المملكة العربية السعودية",
+      about_en: "Project engineer and architect working across industrial facilities, technical reviews, office fit-out, branding scopes, and design coordination. My work connects planning, procurement, execution practicality, and presentation quality inside industrial and commercial environments.",
+      about_ar: "مهندس مشاريع ومهندس معماري أعمل بين المرافق الصناعية، والمراجعات الفنية، وتجهيز المكاتب، ونطاقات الهوية، والتنسيق التصميمي. عملي يربط بين التخطيط والمشتريات وعملية التنفيذ وجودة العرض داخل البيئات الصناعية والتجارية.",
+      highlights: [
+        {value:"11", label_en:"Confirmed projects represented on this site", label_ar:"مشروعًا مؤكدًا ممثلة في هذا الموقع"},
+        {value:"Industrial + Creative", label_en:"Industrial and design-oriented portfolio", label_ar:"محفظة تجمع بين الصناعي والتصميمي"},
+        {value:"BOQ / Procurement", label_en:"Commercial and technical coordination", label_ar:"تنسيق فني وتجاري"},
+        {value:"Arabic / English", label_en:"Bilingual presentation", label_ar:"عرض ثنائي اللغة"}
       ],
-
-      // projects will be loaded from projects.json; this empty array is a placeholder.
-      projects: [],
-
-      experience: [
+      skills_en:["Project Coordination","BOQ Review","Technical Comparison","Industrial Upgrades","Architecture","Interior Design","Branding","AutoCAD","Revit","SketchUp","Twinmotion","SAP"],
+      skills_ar:["تنسيق المشاريع","مراجعة BOQ","مقارنات فنية","تطوير المرافق الصناعية","العمارة","التصميم الداخلي","الهوية البصرية","AutoCAD","Revit","SketchUp","Twinmotion","SAP"],
+      toolbox:[
+        {en:"Industrial facility upgrades, execution follow-up, and internal stakeholder alignment.", ar:"تطوير المرافق الصناعية، ومتابعة التنفيذ، ومواءمة الجهات الداخلية."},
+        {en:"BOQ preparation, supplier offer review, procurement support, and technical-commercial comparison.", ar:"إعداد BOQ، مراجعة عروض الموردين، دعم المشتريات، والمقارنة الفنية والتجارية."},
+        {en:"Architectural concept development, 3D studies, and presentation material for management decisions.", ar:"تطوير المفاهيم المعمارية والدراسات الثلاثية الأبعاد ومواد العرض الداعمة للقرار الإداري."},
+        {en:"Interior and branding work that links function, image, and execution practicality.", ar:"أعمال داخلية وهوية بصرية تربط بين الوظيفة والصورة وقابلية التنفيذ."}
+      ],
+      services:[
+        {en:"Project coordination and execution support", ar:"تنسيق المشاريع ودعم التنفيذ"},
+        {en:"BOQ / offer review / comparison sheets", ar:"مراجعة BOQ والعروض وجداول المقارنة"},
+        {en:"Architectural and interior concept packages", ar:"حزم مفاهيم معمارية وداخلية"},
+        {en:"Factory branding and front-of-house enhancement", ar:"تحسين هوية المصنع ومناطق الواجهة الأمامية"}
+      ],
+      experience:[
         {
-          company_en:"National Biscuits & Confectionery Co. (NBCC)",
-          company_ar:"الشركة الوطنية للبسكويت والحلويات",
           role_en:"Project Engineer",
-          role_ar:"مهندس مشروع",
-          location_en:"Jeddah",
-          location_ar:"جدة",
-          period_en:"Feb 2025 – Present",
-          period_ar:"فبراير 2025 – حتى الآن",
-          desc_en:"Coordinating facility upgrades and expansion projects across industrial plants and warehouses. Preparing BOQs, evaluating supplier offers, and leading procurement support using SAP workflows. Aligning scope with corporate branding and safety standards while controlling costs.",
-          desc_ar:"تنسيق تطوير المرافق ومشاريع التوسعة للمصانع والمخازن الصناعية. إعداد BOQ، تقييم عروض الموردين، وقيادة دعم المشتريات باستخدام أنظمة SAP. مواءمة النطاق مع هوية الشركة ومعايير السلامة مع ضبط التكاليف.",
-          ach_en:"Implemented gate enhancement project and warehouse cooling improvements; streamlined SAP PR/IO/PO processes for timely procurement.",
-          ach_ar:"تنفيذ مشروع تحسين بوابات المصنع وتطوير تبريد المخازن؛ تبسيط عمليات الشراء عبر SAP لضمان المشتريات في الوقت المناسب."
+          role_ar:"مهندس مشاريع",
+          company_en:"National Biscuits & Confectionery Co. (NBCC)",
+          company_ar:"الشركة الوطنية للبسكويت والحلويات (NBCC)",
+          period_en:"2025 – Present",
+          period_ar:"2025 – حتى الآن",
+          desc_en:"Leading and supporting industrial facility projects, technical reviews, procurement workflows, and internal execution coordination.",
+          desc_ar:"قيادة ودعم مشاريع المرافق الصناعية والمراجعات الفنية ومسارات المشتريات والتنسيق التنفيذي الداخلي."
         },
         {
-          company_en:"Ramadan Promenade Development (SILA)",
-          company_ar:"تطوير ممشى رمضان (مع سِلى)",
-          role_en:"Project Coordinator (Part‑Time)",
-          role_ar:"منسق مشروع (دوام جزئي)",
-          location_en:"Jeddah",
-          location_ar:"جدة",
-          period_en:"Seasonal 2025",
-          period_ar:"موسمي 2025",
-          desc_en:"Supported planning and delivery of a large public waterfront activation integrating retail and hospitality zones. Coordinated suppliers, installations, and readiness activities under compressed timelines. Translated design intent into site execution sequencing and logistics follow‑up.",
-          desc_ar:"دعم التخطيط وتنفيذ فعالية عامة على الواجهة البحرية تضم مناطق بيع وضيافة. تنسيق الموردين والتركيبات وأنشطة الجاهزية في أوقات ضيقة. تحويل فكرة التصميم إلى تسلسل تنفيذ بالموقع ومتابعة اللوجستيات.",
-          ach_en:"Successfully managed multi‑vendor coordination and site readiness for event opening.",
-          ach_ar:"إدارة التنسيق بين عدة موردين وتأكد من جاهزية الموقع لافتتاح الفعالية."
-        },
-        {
-          company_en:"Salah Al‑Zughaybi Group",
+          role_en:"Architectural Engineer / Consultant",
+          role_ar:"مهندس معماري / مستشار",
+          company_en:"Salah Al-Zughaybi Group",
           company_ar:"مجموعة صلاح الزغيبي",
-          role_en:"Architectural Engineer",
-          role_ar:"مهندس معماري",
-          location_en:"Riyadh / Jeddah",
-          location_ar:"الرياض / جدة",
-          period_en:"2024 – 2025",
-          period_ar:"2024 – 2025",
-          desc_en:"Developed 3D massing studies and design documentation for mixed‑use and commercial projects. Reviewed architectural drawings, coordinated interior concepts, and produced visualizations for stakeholder approvals.",
-          desc_ar:"أعد دراسات كتلية ثلاثية الأبعاد ووثائق تصميم لمشاريع متعددة الاستخدامات وتجارية. مراجعة الرسومات المعمارية، تنسيق مفاهيم داخلية، وإنتاج إخراج بصري لاعتمادات الجهات.",
-          ach_en:"Delivered coordinated packages that improved design clarity and accelerated approvals.",
-          ach_ar:"تقديم حزم تنسيق حسّنت وضوح التصميم وسرّعت من الحصول على الاعتمادات."
+          period_en:"2024 – Present",
+          period_ar:"2024 – حتى الآن",
+          desc_en:"Developing architectural studies, design coordination, and visualization packages for private and commercial projects.",
+          desc_ar:"تطوير الدراسات المعمارية والتنسيق التصميمي وحزم الإظهار للمشاريع الخاصة والتجارية."
         },
         {
-          company_en:"Qadeeb Al‑Ban Company",
-          company_ar:"شركة قضيب البان",
           role_en:"Architectural Engineer & Site Supervisor",
           role_ar:"مهندس معماري ومشرف موقع",
-          location_en:"KSA",
-          location_ar:"السعودية",
+          company_en:"Qadeeb Al-Ban Trading & Contracting",
+          company_ar:"شركة قضيب البان للتجارة والمقاولات",
           period_en:"2023 – 2024",
           period_ar:"2023 – 2024",
-          desc_en:"Oversaw architectural design development and site supervision for retail and residential projects. Managed modifications, assessed design constraints, and ensured compliance during construction.",
-          desc_ar:"الإشراف على تطوير التصاميم المعمارية ومتابعة الموقع للمشاريع التجارية والسكنية. إدارة التعديلات، تقييم القيود التصميمية، وضمان الالتزام أثناء التنفيذ.",
-          ach_en:"Resolved site issues and delivered projects within safety and quality standards.",
-          ach_ar:"حل مشاكل الموقع وتسليم المشاريع ضمن معايير السلامة والجودة."
+          desc_en:"Site supervision, design follow-up, and project delivery support under quality and safety requirements.",
+          desc_ar:"إشراف موقع ومتابعة تصميم ودعم تسليم المشاريع ضمن متطلبات الجودة والسلامة."
         },
         {
-          company_en:"Al‑Ittihad & Al‑Takaful Real Estate Development",
-          company_ar:"الاتحاد والتكافل للتطوير العقاري",
           role_en:"Architectural Engineer",
           role_ar:"مهندس معماري",
-          location_en:"KSA",
-          location_ar:"السعودية",
+          company_en:"Al-Ittihad & Al-Takaful Real Estate Development",
+          company_ar:"الاتحاد والتكافل للتطوير العقاري",
           period_en:"2022 – 2023",
           period_ar:"2022 – 2023",
-          desc_en:"Worked on urban planning studies and site design for real estate developments. Assisted in preparing permit drawings and coordinated with authorities for approvals.",
-          desc_ar:"العمل على دراسات تخطيط عمراني وتصميم المواقع لمشاريع التطوير العقاري. المساعدة في إعداد رسومات التصاريح والتنسيق مع الجهات للحصول على الاعتمادات.",
-          ach_en:"Secured necessary approvals and supported early design phases for multiple developments.",
-          ach_ar:"الحصول على الاعتمادات اللازمة ودعم مراحل التصميم الأولية لعدة مشاريع."
+          desc_en:"Architectural work on villa and commercial development packages in Jeddah and Makkah.",
+          desc_ar:"أعمال معمارية على حزم فلل وتطويرات تجارية في جدة ومكة."
         }
       ],
-
-      education: [
+      education:[
         {
-          inst_en:"Umm Al‑Qura University",
-          inst_ar:"جامعة أم القرى",
-          degree_en:"B.Arch (Architectural Engineering)",
-          degree_ar:"بكالوريوس هندسة معمارية",
-          period_en:"Graduated",
-          period_ar:"متخرج",
-          notes_en:"Architecture fundamentals, design studios, technical and project work.",
-          notes_ar:"أساسيات العمارة، استوديوهات تصميم، أعمال فنية ومشاريع."
+          title_en:"Bachelor's Degree in Architectural Engineering",
+          title_ar:"بكالوريوس هندسة معمارية",
+          inst_en:"Umm Al-Qura University",
+          inst_ar:"جامعة أم القرى"
         }
       ],
-
-      certifications: [
-        {
-          name_en:"CAPM Candidate (PMI)",
-          name_ar:"مرشح CAPM من معهد إدارة المشاريع",
-          issuer_en:"Project Management Institute",
-          issuer_ar:"معهد إدارة المشاريع",
-          date_en:"In progress",
-          date_ar:"قيد التقدم",
-          url:"#"
-        },
-        {
-          name_en:"Elements of AI – Certificate",
-          name_ar:"شهادة عناصر الذكاء الاصطناعي",
-          issuer_en:"University of Helsinki",
-          issuer_ar:"جامعة هلسنكي",
-          date_en:"Issued 2025",
-          date_ar:"صادرة 2025",
-          url:"#"
-        },
-        {
-          name_en:"Saudi Council of Engineers Membership",
-          name_ar:"عضوية الهيئة السعودية للمهندسين",
-          issuer_en:"SCE",
-          issuer_ar:"الهيئة السعودية للمهندسين",
-          date_en:"Active",
-          date_ar:"سارية",
-          url:"#"
-        }
-      ],
-
-      social: [
-        { title_en:"LinkedIn", title_ar:"لينكدإن", url:"https://linkedin.com/in/raghdan" },
-        { title_en:"Email", title_ar:"البريد", url:"mailto:iraghdan@gmail.com" },
-        { title_en:"WhatsApp", title_ar:"واتساب", url:"#WHATSAPP#" }
+      certs:[
+        {en:"Saudi Council of Engineers Membership", ar:"عضوية الهيئة السعودية للمهندسين"},
+        {en:"25-hour PMI-CAPM Training Certificate", ar:"شهادة حضور دورة PMI-CAPM لمدة 25 ساعة"},
+        {en:"Elements of AI Certificate", ar:"شهادة Elements of AI"}
       ]
     };
 
-    /***********************
-     * 2) LANGUAGE + TEXT
-     ***********************/
     const I18N = {
-      en: {
-        nav_home:"Home", nav_about:"About", nav_projects:"Projects", nav_resume:"Resume", nav_contact:"Contact",
-        btn_cv:"Download CV", btn_whatsapp:"WhatsApp",
-        hero_pill:"Industrial Facilities • Fit-Out • Compliance",
-        hero_title:"I deliver practical execution from design to handover.",
-        hero_sub:"Portfolio of industrial and architectural work with focus on scope clarity, cost control, and compliance.",
-        btn_view_projects:"View Projects", btn_contact:"Contact Me", btn_copy_email:"Copy Email",
-        kpi_title:"Highlights", kpi_note:"Editable in code (data section)",
-        kpi1:"Projects Delivered / Supported", kpi2:"BOQ, RFQ, Technical Comparison", kpi3:"Compliance & Site Coordination", kpi4:"Revit, AutoCAD, Twinmotion",
-        about_title:"About", about_sub:"Short, direct, and execution-focused.", about_badge:"Available for freelance / consulting",
-        about_text: DATA.profile.about_en,
-        toolbox_title:"Toolbox", toolbox_sub:"Core tools & workstreams",
-        projects_title:"Projects", projects_sub:"Filter by category and open any project for full details.",
-        resume_title:"Resume", resume_sub:"Experience, education, and certificates.", resume_badge:"PDF CV downloadable",
-        exp_title:"Experience", edu_title:"Education & Certificates",
-        contact_title:"Contact", contact_sub:"Send a message and I’ll get back to you.",
-        f_name:"Full name", f_email:"Email", f_subject:"Subject", f_message:"Message", f_send:"Send",
-        btn_copy_phone:"Copy Phone", btn_email:"Email",
-        contact_note:"This demo form uses mailto/WhatsApp (no server). Connect to your backend when ready.",
-        social_title:"Links", services_title:"Services",
-        footer_note:"Built as a single-file portfolio (easy to host)",
-        m_summary:"Summary", m_scope:"Scope", m_resp:"Responsibilities", m_tools:"Tools",
-        m_cta:"Discuss this project", m_copy:"Copy project title",
-        m_media:"Media", m_media_note:"Add real images/links in the data section. This demo shows placeholders.",
-        nav_admin:"Admin",
-        admin_title:"Admin",
-        admin_sub:"Upload a projects JSON file to populate the portfolio.",
-        admin_file:"Projects JSON file",
-        admin_upload:"Upload",
-        admin_success:"Projects loaded successfully.",
-        admin_error:"Invalid projects file.",
+      ar:{
+        dir:"rtl", langBtn:"EN",
+        nav_about:"نبذة", nav_projects:"المشاريع", nav_resume:"الخبرات", nav_contact:"التواصل",
+        hero_eyebrow:"مشاريع صناعية ومعمارية وتنفيذية",
+        hero_title:"واجهة رقمية تجمع خبرتي في الإدارة والتنفيذ والتصميم.",
+        hero_text:"هذا الموقع يجمع المشاريع المؤكدة المرتبطة بخبرتي في المصانع والمرافق والتطوير المعماري والعروض التنفيذية، مع وصف واضح لكل مشروع وهيكل جاهز لإضافة الصور الفعلية.",
+        view_projects:"عرض المشاريع",
+        about_title:"نبذة", about_sub:"مختصر مهني مباشر يعكس الدور الحقيقي.", about_badge:"مهيأ للإدارة والعرض على العملاء",
+        projects_title:"المشاريع", projects_sub:"بطاقات منظمة مع وصف المشروع وهيكل صور قابل للتطوير.",
+        resume_title:"الخبرات والمسار المهني", resume_sub:"الملخص المهني والخبرات المؤكدة المرتبطة بالموقع.",
+        contact_title:"التواصل", contact_sub:"روابط مباشرة للاستخدام السريع.",
+        search_placeholder:"ابحث عن مشروع أو كلمة...",
+        images_note:"مهم: أضفت هيكل الصور ووصف كل صورة داخل المشاريع، لكن الصور الفعلية نفسها غير متاحة لي داخل المستودع الحالي. بمجرد رفع صورك إلى مجلد assets/projects وتحديث روابطها في projects.json ستظهر مباشرة في الموقع.",
+        categories:{"All":"الكل","Industrial":"صناعي","Architecture":"معماري","Interior":"داخلي","HVAC":"HVAC","Branding":"هوية"},
+        project_btn:"فتح المشروع",
+        featured:"مميز",
+        modal_summary:"الملخص",
+        modal_scope:"نطاق العمل",
+        modal_resp:"الدور والمسؤوليات",
+        modal_tools:"الأدوات",
+        modal_gallery_note:"الصور والوصف",
+        footer:"موقع جاهز للنشر على GitHub Pages مع واجهة عربية/إنجليزية.",
+        service_prefix:"خدمة",
+        contact_labels:[
+          {title:"البريد الإلكتروني", value:"iraghdan@gmail.com", href:"mailto:iraghdan@gmail.com"},
+          {title:"واتساب", value:"+966 54 904 0800", href:"https://wa.me/966549040800"},
+          {title:"الموقع", value:"GitHub Pages Static Portfolio", href:"#projects"}
+        ]
       },
-      ar: {
-        nav_home:"الرئيسية", nav_about:"نبذة", nav_projects:"المشاريع", nav_resume:"السيرة", nav_contact:"التواصل",
-        btn_cv:"تحميل السيرة", btn_whatsapp:"واتساب",
-        hero_pill:"مرافق صناعية • تشطيبات • مطابقة",
-        hero_title:"أنفّذ عمليًا من التصميم حتى التسليم.",
-        hero_sub:"بورتفوليو لأعمال صناعية ومعمارية مع تركيز على وضوح النطاق وضبط التكلفة والمطابقة.",
-        btn_view_projects:"عرض المشاريع", btn_contact:"تواصل معي", btn_copy_email:"نسخ البريد",
-        kpi_title:"ملخص سريع", kpi_note:"قابل للتعديل داخل الكود",
-        kpi1:"مشاريع تم تنفيذها/دعمها", kpi2:"BOQ وRFQ ومقارنات فنية", kpi3:"مطابقة وتنسيق بالموقع", kpi4:"Revit وAutoCAD وTwinmotion",
-        about_title:"نبذة", about_sub:"مختصر ومباشر وتركيز على التنفيذ.", about_badge:"متاح للأعمال الحرة/الاستشارات",
-        about_text: DATA.profile.about_ar,
-        toolbox_title:"منهج العمل", toolbox_sub:"الأدوات والمسارات الأساسية",
-        projects_title:"المشاريع", projects_sub:"فلترة حسب النوع وافتح أي مشروع للتفاصيل.",
-        resume_title:"السيرة المهنية", resume_sub:"الخبرات والتعليم والشهادات.", resume_badge:"السيرة PDF قابلة للتحميل",
-        exp_title:"الخبرات", edu_title:"التعليم والشهادات",
-        contact_title:"التواصل", contact_sub:"أرسل رسالة وسأرد عليك.",
-        f_name:"الاسم الكامل", f_email:"البريد", f_subject:"الموضوع", f_message:"الرسالة", f_send:"إرسال",
-        btn_copy_phone:"نسخ الجوال", btn_email:"إيميل",
-        contact_note:"هذا نموذج تجريبي بدون سيرفر (mailto/WhatsApp). اربطه بباك-إند لاحقًا.",
-        social_title:"الروابط", services_title:"الخدمات",
-        footer_note:"موقع بملف واحد (سهل الاستضافة)",
-        m_summary:"ملخص", m_scope:"نطاق العمل", m_resp:"المسؤوليات", m_tools:"الأدوات",
-        m_cta:"ناقش هذا المشروع", m_copy:"نسخ اسم المشروع",
-        m_media:"مرفقات/صور", m_media_note:"أضف صور وروابط حقيقية من قسم البيانات. هذا عرض تجريبي.",
-        nav_admin:"الإدارة",
-        admin_title:"لوحة التحكم",
-        admin_sub:"قم برفع ملف JSON للمشاريع لتعبئة البورتفوليو.",
-        admin_file:"ملف المشاريع (JSON)",
-        admin_upload:"رفع",
-        admin_success:"تم تحميل المشاريع بنجاح.",
-        admin_error:"صيغة الملف غير صحيحة.",
+      en:{
+        dir:"ltr", langBtn:"AR",
+        nav_about:"About", nav_projects:"Projects", nav_resume:"Experience", nav_contact:"Contact",
+        hero_eyebrow:"Industrial, architectural, and execution-focused work",
+        hero_title:"A digital portfolio for my project, execution, and design work.",
+        hero_text:"This site brings together the confirmed projects tied to my work across factories, facilities, architectural development, and execution-oriented presentations, with clear descriptions and a ready structure for real project images.",
+        view_projects:"View Projects",
+        about_title:"About", about_sub:"Direct professional summary that reflects the real role.", about_badge:"Ready for management and client-facing presentation",
+        projects_title:"Projects", projects_sub:"Organized cards with clear project descriptions and an expandable image structure.",
+        resume_title:"Experience & Career Path", resume_sub:"Professional summary and confirmed experience aligned with this website.",
+        contact_title:"Contact", contact_sub:"Direct links for fast reach-out.",
+        search_placeholder:"Search projects or keywords...",
+        images_note:"Important: I added the image framework and descriptive captions for each project, but the actual project photos are not available in the current repository. Once you upload your images to assets/projects and update their links in projects.json, they will appear immediately.",
+        categories:{"All":"All","Industrial":"Industrial","Architecture":"Architecture","Interior":"Interior","HVAC":"HVAC","Branding":"Branding"},
+        project_btn:"Open Project",
+        featured:"Featured",
+        modal_summary:"Summary",
+        modal_scope:"Scope",
+        modal_resp:"Role & responsibilities",
+        modal_tools:"Tools",
+        modal_gallery_note:"Images & captions",
+        footer:"GitHub Pages-ready portfolio with Arabic/English interface.",
+        service_prefix:"Service",
+        contact_labels:[
+          {title:"Email", value:"iraghdan@gmail.com", href:"mailto:iraghdan@gmail.com"},
+          {title:"WhatsApp", value:"+966 54 904 0800", href:"https://wa.me/966549040800"},
+          {title:"Website", value:"GitHub Pages Static Portfolio", href:"#projects"}
+        ]
       }
     };
 
-    let lang = "en";
+    let currentLang = "ar";
+    let projects = [];
 
-    /***********************
-     * 3) HELPERS
-     ***********************/
-    const $ = (id) => document.getElementById(id);
-    const escapeHtml = (s="") => s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-    const toWhatsAppLink = (numberDigits, text) => `https://wa.me/${numberDigits}?text=${encodeURIComponent(text)}`;
-
-    function setDirAndLang(){
-      const html = document.documentElement;
-      html.lang = lang;
-      html.dir = (lang === "ar") ? "rtl" : "ltr";
-      document.body.classList.toggle("rtl", lang==="ar");
-
-      // search placeholder
-      $("searchInput").placeholder = (lang==="ar") ? "بحث..." : "Search...";
+    async function loadProjects(){
+      const res = await fetch("./projects.json");
+      const parsed = await res.json();
+      projects = parsed.projects || [];
     }
 
-    function applyI18N(){
+    const $ = (id) => document.getElementById(id);
+    function esc(s=""){return String(s).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+    function fallbackText(project){
+      return currentLang==="ar" ? project.title_ar : project.title_en;
+    }
+    function coverHtml(project){
+      const img = project.cover || "";
+      if(img){
+        return `<img src="${esc(img)}" alt="${esc(fallbackText(project))}" onerror="this.remove(); this.parentNode.insertAdjacentHTML('beforeend', '<div class=\\'fallback\\'>${esc(fallbackText(project))}</div>')">`;
+      }
+      return `<div class="fallback">${esc(fallbackText(project))}</div>`;
+    }
+
+    function renderShellText(){
+      const t = I18N[currentLang];
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = t.dir;
+      document.body.classList.toggle("rtl", currentLang==="ar");
       document.querySelectorAll("[data-i18n]").forEach(el=>{
         const key = el.getAttribute("data-i18n");
-        if(I18N[lang][key] !== undefined) el.textContent = I18N[lang][key];
+        if(t[key]) el.textContent = t[key];
       });
-      $("btnLang").textContent = (lang === "en") ? "AR" : "EN";
+      $("lang-btn").textContent = t.langBtn;
+      $("brand-role").textContent = currentLang==="ar" ? PROFILE.role_ar : PROFILE.role_en;
+      $("hero-title").textContent = t.hero_title;
+      $("hero-text").textContent = t.hero_text;
+      $("about-text").textContent = currentLang==="ar" ? PROFILE.about_ar : PROFILE.about_en;
+      $("search-input").placeholder = t.search_placeholder;
+      $("images-note").textContent = t.images_note;
+      $("footer-note").textContent = t.footer;
     }
 
-    function fillProfileUI(){
-      $("brandName").textContent = DATA.profile.fullName;
-      $("footerName").textContent = DATA.profile.fullName;
-      $("brandRole").textContent = DATA.profile.headline;
-      $("emailText").textContent = DATA.profile.email;
-      $("contactPill").textContent = DATA.profile.email;
-      $("cityText").textContent = `${DATA.profile.city}, ${DATA.profile.country}`;
-      $("btnCV").href = DATA.profile.cvUrl;
-      $("btnMailTo").href = `mailto:${DATA.profile.email}`;
-      $("btnWhatsApp").href = toWhatsAppLink(DATA.profile.whatsappNumber, (lang==="ar") ? "مرحبًا، أبغى أتواصل بخصوص مشروع." : "Hi, I’d like to discuss a project.");
-      // social whatsapp placeholder replacement
-      DATA.social.forEach(s=>{
-        if(s.url === "#WHATSAPP#") s.url = $("btnWhatsApp").href;
-      });
-
-      // KPIs
-      const H = DATA.profile.highlights;
-      $("kpi1Val").textContent = H[0].value;
-      $("kpi2Val").textContent = H[1].value;
-      $("kpi3Val").textContent = H[2].value;
-      $("kpi4Val").textContent = H[3].value;
-      $("kpi1Lbl").textContent = (lang==="ar") ? H[0].label_ar : H[0].label_en;
-      $("kpi2Lbl").textContent = (lang==="ar") ? H[1].label_ar : H[1].label_en;
-      $("kpi3Lbl").textContent = (lang==="ar") ? H[2].label_ar : H[2].label_en;
-      $("kpi4Lbl").textContent = (lang==="ar") ? H[3].label_ar : H[3].label_en;
-
-      // About text
-      $("aboutText").textContent = I18N[lang].about_text;
+    function renderKPIs(){
+      $("kpis").innerHTML = PROFILE.highlights.map(h=>`
+        <div class="kpi">
+          <strong>${esc(h.value)}</strong>
+          <span>${esc(currentLang==="ar" ? h.label_ar : h.label_en)}</span>
+        </div>`).join("");
     }
 
-    function renderSkills(){
-      const wrap = $("skillsWrap");
-      wrap.innerHTML = "";
-      DATA.profile.skills.forEach(s=>{
-        const div = document.createElement("div");
-        div.className = "skill";
-        div.innerHTML = `<span class="dot ${s.color==='g'?'g':''}"></span><b>${escapeHtml(lang==="ar"?s.name_ar:s.name_en)}</b>`;
-        wrap.appendChild(div);
-      });
+    function renderAbout(){
+      $("skills").innerHTML = (currentLang==="ar" ? PROFILE.skills_ar : PROFILE.skills_en)
+        .map(s=>`<span class="chip">${esc(s)}</span>`).join("");
+      $("toolbox").innerHTML = PROFILE.toolbox.map(item=>`
+        <div class="item"><p>${esc(currentLang==="ar" ? item.ar : item.en)}</p></div>
+      `).join("");
     }
 
-    function renderToolbox(){
-      const list = $("toolboxList");
-      list.innerHTML = "";
-      DATA.profile.toolbox.forEach(t=>{
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `
-          <div class="top">
-            <div>
-              <b>${escapeHtml(lang==="ar"?t.title_ar:t.title_en)}</b>
-              <div class="muted" style="margin-top:6px">${escapeHtml(lang==="ar"?t.desc_ar:t.desc_en)}</div>
-            </div>
-          </div>
-        `;
-        list.appendChild(div);
-      });
+    function renderCategories(){
+      const t = I18N[currentLang];
+      const unique = ["All", ...Array.from(new Set(projects.map(p=>p.category)))];
+      $("category-filter").innerHTML = unique.map(c=>`<option value="${esc(c)}">${esc(t.categories[c] || c)}</option>`).join("");
     }
-
-    function renderCategoryFilter(){
-      const sel = $("categoryFilter");
-      sel.innerHTML = "";
-      DATA.categories.forEach(c=>{
-        const opt = document.createElement("option");
-        const name = (lang==="ar")
-          ? ({All:"الكل",Industrial:"صناعي",Architecture:"معماري",Interior:"تشطيبات",HVAC:"HVAC",FireSafety:"سلامة حريق",Branding:"هوية",Other:"أخرى"}[c] || c)
-          : c;
-        opt.value = c;
-        opt.textContent = name;
-        sel.appendChild(opt);
-      });
-    }
-
-    function projectTitle(p){ return (lang==="ar") ? p.title_ar : p.title_en; }
-    function projectSummary(p){ return (lang==="ar") ? p.summary_ar : p.summary_en; }
-    function projectScope(p){ return (lang==="ar") ? p.scope_ar : p.scope_en; }
-    function projectResp(p){ return (lang==="ar") ? p.resp_ar : p.resp_en; }
-    function projectTools(p){ return (lang==="ar") ? p.tools_ar : p.tools_en; }
 
     function renderProjects(){
-      const grid = $("projectsGrid");
-      if(!grid) return;
-      grid.innerHTML = "";
-      const cat = $("categoryFilter").value;
-      const q = $("searchInput").value.trim().toLowerCase();
-
-      const filtered = DATA.projects
-        .filter(p => (cat === "All" ? true : p.category === cat))
-        .filter(p => {
-          if(!q) return true;
-          const hay = `${p.id} ${p.category} ${projectTitle(p)} ${projectSummary(p)} ${p.tags.join(" ")}`.toLowerCase();
-          return hay.includes(q);
-        })
-        .sort((a,b)=> (b.featured===true) - (a.featured===true));
-
-      if(filtered.length === 0){
-        const empty = document.createElement("div");
-        empty.className = "item";
-        empty.style.gridColumn = "1/-1";
-        empty.innerHTML = `<b>${lang==="ar"?"لا توجد نتائج":"No results"}</b><div class="muted" style="margin-top:6px">${lang==="ar"?"جرّب تغيير الفلتر أو البحث.":"Try changing filters or search."}</div>`;
-        grid.appendChild(empty);
-        return;
-      }
-
-      filtered.forEach(p=>{
-        const tile = document.createElement("div");
-        tile.className = "tile";
-        tile.tabIndex = 0;
-        tile.setAttribute("role","button");
-        tile.setAttribute("aria-label","Open project details");
-        tile.innerHTML = `
-          <div class="thumb"></div>
-          <div class="tile-body">
-            <h3>${escapeHtml(projectTitle(p))}</h3>
-            <p>${escapeHtml(projectSummary(p))}</p>
+      const q = $("search-input").value.trim().toLowerCase();
+      const cat = $("category-filter").value || "All";
+      const t = I18N[currentLang];
+      const filtered = projects.filter(p=>{
+        const catOk = cat==="All" || p.category===cat;
+        const hay = [
+          p.title_ar,p.title_en,p.summary_ar,p.summary_en,p.client,p.location,(p.tags||[]).join(" ")
+        ].join(" ").toLowerCase();
+        return catOk && (!q || hay.includes(q));
+      });
+      $("projects-grid").innerHTML = filtered.map(p=>`
+        <article class="card project">
+          <div class="project-cover">${coverHtml(p)}</div>
+          <div class="project-body">
+            <h4>${esc(currentLang==="ar" ? p.title_ar : p.title_en)}</h4>
             <div class="meta">
-              <span class="tag">${escapeHtml(p.category)}</span>
-              <span class="tag">${escapeHtml(p.location)}</span>
-              <span class="tag">${escapeHtml(p.status)}</span>
-              ${p.featured ? `<span class="tag" style="border-color:rgba(34,197,94,.45); color:#c7f9d4">★ ${lang==="ar"?"مميز":"Featured"}</span>` : ""}
+              <span>${esc(p.category)}</span>
+              <span>${esc(p.location)}</span>
+              <span>${esc(p.status)}</span>
+              ${p.featured ? `<span>${esc(t.featured)}</span>` : ""}
+            </div>
+            <p>${esc(currentLang==="ar" ? p.summary_ar : p.summary_en)}</p>
+            <div class="actions">
+              <button class="btn primary" onclick="openProject('${esc(p.id)}')">${esc(t.project_btn)}</button>
             </div>
           </div>
-        `;
-        tile.addEventListener("click", ()=> openModal(p.id));
-        tile.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openModal(p.id); }});
-        grid.appendChild(tile);
-      });
+        </article>
+      `).join("");
     }
 
     function renderResume(){
-      const expList = $("expList");
-      expList.innerHTML = "";
-      DATA.experience.forEach(e=>{
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `
+      $("experience-list").innerHTML = PROFILE.experience.map(e=>`
+        <div class="item">
           <div class="top">
             <div>
-              <b>${escapeHtml(lang==="ar"?e.role_ar:e.role_en)}</b>
-              <small>${escapeHtml(lang==="ar"?e.company_ar:e.company_en)} • ${escapeHtml(lang==="ar"?e.location_ar:e.location_en)}</small>
+              <b>${esc(currentLang==="ar" ? e.role_ar : e.role_en)}</b><br>
+              <small>${esc(currentLang==="ar" ? e.company_ar : e.company_en)}</small>
             </div>
-            <small>${escapeHtml(lang==="ar"?e.period_ar:e.period_en)}</small>
+            <small>${esc(currentLang==="ar" ? e.period_ar : e.period_en)}</small>
           </div>
-          <div class="muted" style="margin-top:8px">${escapeHtml(lang==="ar"?e.desc_ar:e.desc_en)}</div>
-          <div class="muted" style="margin-top:8px"><b style="color:var(--text)">${lang==="ar"?"إنجازات: ":"Achievements: "}</b>${escapeHtml(lang==="ar"?e.ach_ar:e.ach_en)}</div>
-        `;
-        expList.appendChild(div);
-      });
-
-      const eduList = $("eduList");
-      eduList.innerHTML = "";
-      DATA.education.forEach(ed=>{
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `
-          <b>${escapeHtml(lang==="ar"?ed.degree_ar:ed.degree_en)}</b>
-          <small>${escapeHtml(lang==="ar"?ed.inst_ar:ed.inst_en)} • ${escapeHtml(lang==="ar"?ed.period_ar:ed.period_en)}</small>
-          <div class="muted" style="margin-top:8px">${escapeHtml(lang==="ar"?ed.notes_ar:ed.notes_en)}</div>
-        `;
-        eduList.appendChild(div);
-      });
-
-      const certList = $("certList");
-      certList.innerHTML = "";
-      DATA.certifications.forEach(c=>{
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `
-          <div class="top">
-            <div>
-              <b>${escapeHtml(lang==="ar"?c.name_ar:c.name_en)}</b>
-              <small>${escapeHtml(lang==="ar"?c.issuer_ar:c.issuer_en)}</small>
-            </div>
-            <small>${escapeHtml(lang==="ar"?c.date_ar:c.date_en)}</small>
-          </div>
-          ${c.url && c.url !== "#" ? `<div style="margin-top:10px"><a class="btn" href="${escapeHtml(c.url)}" target="_blank" rel="noreferrer">${lang==="ar"?"فتح الرابط":"Open link"}</a></div>` : ""}
-        `;
-        certList.appendChild(div);
-      });
+          <p>${esc(currentLang==="ar" ? e.desc_ar : e.desc_en)}</p>
+        </div>
+      `).join("");
+      $("education-list").innerHTML = PROFILE.education.map(e=>`
+        <div class="item">
+          <b>${esc(currentLang==="ar" ? e.title_ar : e.title_en)}</b><br>
+          <small>${esc(currentLang==="ar" ? e.inst_ar : e.inst_en)}</small>
+        </div>
+      `).join("");
+      $("cert-list").innerHTML = PROFILE.certs.map(c=>`
+        <div class="item"><b>${esc(currentLang==="ar" ? c.ar : c.en)}</b></div>
+      `).join("");
     }
 
-    function renderSocialAndServices(){
-      const social = $("socialList");
-      social.innerHTML = "";
-      DATA.social.forEach(s=>{
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `
-          <div class="top">
-            <div>
-              <b>${escapeHtml(lang==="ar"?s.title_ar:s.title_en)}</b>
-              <div class="muted" style="margin-top:6px">${escapeHtml(s.url)}</div>
-            </div>
-            <a class="btn" href="${escapeHtml(s.url)}" target="_blank" rel="noreferrer">${lang==="ar"?"فتح":"Open"}</a>
-          </div>
-        `;
-        social.appendChild(div);
-      });
-
-      const services = $("servicesList");
-      services.innerHTML = "";
-      DATA.profile.services.forEach(s=>{
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `
-          <b>${escapeHtml(lang==="ar"?s.title_ar:s.title_en)}</b>
-          <div class="muted" style="margin-top:6px">${escapeHtml(lang==="ar"?s.desc_ar:s.desc_en)}</div>
-        `;
-        services.appendChild(div);
-      });
+    function renderContact(){
+      const t = I18N[currentLang];
+      $("contact-list").innerHTML = t.contact_labels.map(c=>`
+        <a class="item" href="${esc(c.href)}">
+          <b>${esc(c.title)}</b>
+          <p>${esc(c.value)}</p>
+        </a>
+      `).join("");
+      $("services-list").innerHTML = PROFILE.services.map((s,i)=>`
+        <div class="item">
+          <b>${esc(t.service_prefix)} ${i+1}</b>
+          <p>${esc(currentLang==="ar" ? s.ar : s.en)}</p>
+        </div>
+      `).join("");
     }
 
-    /***********************
-     * 4) MODAL
-     ***********************/
-    function openModal(projectId){
-      const p = DATA.projects.find(x=>x.id===projectId);
+    function openProject(id){
+      const t = I18N[currentLang];
+      const p = projects.find(x=>x.id===id);
       if(!p) return;
-
-      $("modalTitle").textContent = projectTitle(p);
-      $("modalMeta").textContent = `${p.category} • ${p.location} • ${p.status} • ${p.dates || ''}`;
-      $("modalSummary").textContent = projectSummary(p);
-      $("modalScope").textContent = projectScope(p);
-      $("modalResp").textContent = projectResp(p);
-      $("modalTools").textContent = projectTools(p);
-
-      // tags
-      const tagsWrap = $("modalTags");
-      tagsWrap.innerHTML = "";
-      p.tags.forEach(t=>{
-        const span = document.createElement("span");
-        span.className = "tag";
-        span.textContent = t;
-        tagsWrap.appendChild(span);
-      });
-
-      // media placeholders
-      const media = $("modalMedia");
-      media.innerHTML = "";
-      const mediaItems = (p.media && p.media.length) ? p.media : [
-        {type:"Image", title: lang==="ar"?"صورة تجريبية":"Demo Image", url:"#"},
-        {type:"PDF", title: lang==="ar"?"ملف تجريبي":"Demo PDF", url:"#"},
-      ];
-      mediaItems.forEach(m=>{
-        const tile = document.createElement("div");
-        tile.className = "tile";
-        tile.innerHTML = `
-          <div class="thumb"></div>
-          <div class="tile-body">
-            <h3>${escapeHtml(m.title)}</h3>
-            <p>${escapeHtml(m.type)} • ${escapeHtml(m.url)}</p>
-            <div class="meta"><span class="tag">${escapeHtml(m.type)}</span></div>
+      $("modal-title").textContent = currentLang==="ar" ? p.title_ar : p.title_en;
+      $("modal-meta").textContent = [p.client,p.location,p.status,p.dates].filter(Boolean).join(" • ");
+      $("modal-info").innerHTML = `
+        <div class="item"><b>${t.modal_summary}</b><p>${esc(currentLang==="ar" ? p.summary_ar : p.summary_en)}</p></div>
+        <div class="item"><b>${t.modal_scope}</b><p>${esc(currentLang==="ar" ? p.scope_ar : p.scope_en)}</p></div>
+        <div class="item"><b>${t.modal_resp}</b><p>${esc(currentLang==="ar" ? p.resp_ar : p.resp_en)}</p></div>
+        <div class="item"><b>${t.modal_tools}</b><p>${esc(currentLang==="ar" ? p.tools_ar : p.tools_en)}</p></div>
+      `;
+      $("modal-gallery").innerHTML = (p.gallery || []).map(g=>`
+        <div class="gallery-card">
+          <div class="img">
+            ${g.image ? `<img src="${esc(g.image)}" alt="${esc(currentLang==="ar" ? g.title_ar : g.title_en)}" onerror="this.remove(); this.parentNode.insertAdjacentHTML('beforeend','<div class=\\'fallback\\'>${esc(currentLang==="ar" ? g.title_ar : g.title_en)}</div>')">` : `<div class="fallback">${esc(currentLang==="ar" ? g.title_ar : g.title_en)}</div>`}
           </div>
-        `;
-        tile.addEventListener("click", ()=>{
-          if(m.url && m.url !== "#") window.open(m.url, "_blank");
-        });
-        media.appendChild(tile);
-      });
-
-      $("modalCopyTitle").onclick = () => copyToClipboard(projectTitle(p), lang==="ar"?"تم النسخ":"Copied");
-      $("modalBackdrop").style.display = "flex";
+          <div class="body">
+            <h5>${esc(currentLang==="ar" ? g.title_ar : g.title_en)}</h5>
+            <p>${esc(currentLang==="ar" ? g.caption_ar : g.caption_en)}</p>
+          </div>
+        </div>
+      `).join("");
+      $("modal-backdrop").style.display = "flex";
       document.body.style.overflow = "hidden";
     }
 
-    function closeModal(){
-      $("modalBackdrop").style.display = "none";
+    function closeProject(){
+      $("modal-backdrop").style.display = "none";
       document.body.style.overflow = "";
     }
 
-    /***********************
-     * 5) CONTACT (MAILTO + WHATSAPP)
-     ***********************/
-    function showNotice(msg, isErr=false){
-      const n = $("contactNotice");
-      n.textContent = msg;
-      n.classList.toggle("err", isErr);
-      n.style.display = "block";
-      setTimeout(()=>{ n.style.display="none"; }, 4200);
-    }
-
-    // Show notice in Admin upload section
-    function showUploadNotice(msg, isErr=false){
-      const n = $("uploadNotice");
-      n.textContent = msg;
-      n.classList.toggle("err", isErr);
-      n.style.display = "block";
-      setTimeout(()=>{ n.style.display="none"; }, 4200);
-    }
-
-    // Handle upload form submission to import projects from JSON
-    function handleUploadSubmit(e){
-      e.preventDefault();
-      const fileInput = $("projectsFile");
-      const file = fileInput.files[0];
-      if(!file){
-        showUploadNotice((lang==="ar" ? I18N.ar.admin_error : I18N.en.admin_error), true);
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = function(ev){
-        try {
-          const obj = JSON.parse(ev.target.result);
-          if(Array.isArray(obj.projects)){
-            // Replace projects array
-            DATA.projects = obj.projects;
-            renderCategoryFilter();
-            renderProjects();
-            showUploadNotice((lang==="ar" ? I18N.ar.admin_success : I18N.en.admin_success), false);
-          } else {
-            showUploadNotice((lang==="ar" ? I18N.ar.admin_error : I18N.en.admin_error), true);
-          }
-        } catch(err){
-          showUploadNotice((lang==="ar" ? I18N.ar.admin_error : I18N.en.admin_error), true);
-        }
-      };
-      reader.readAsText(file);
-      e.target.reset();
-    }
-
-    function handleContactSubmit(e){
-      e.preventDefault();
-      const fd = new FormData(e.target);
-      const name = (fd.get("name")||"").toString().trim();
-      const email = (fd.get("email")||"").toString().trim();
-      const subject = (fd.get("subject")||"").toString().trim();
-      const message = (fd.get("message")||"").toString().trim();
-
-      if(!name || !email || !subject || !message){
-        showNotice(lang==="ar" ? "فضلاً عبّئ كل الحقول." : "Please fill all fields.", true);
-        return;
-      }
-
-      const body = `${lang==="ar"?"الاسم":"Name"}: ${name}
-${lang==="ar"?"البريد":"Email"}: ${email}
-
-${message}
-
-— Sent from Portfolio Website`;
-      const mailto = `mailto:${DATA.profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      // Open mail client
-      window.location.href = mailto;
-
-      // Optional WhatsApp message (comment if you don't want)
-      const waText = `${lang==="ar"?"مرحبًا":"Hi"}, ${DATA.profile.fullName}. ${lang==="ar"?"أنا":"I am"} ${name}. ${lang==="ar"?"الموضوع":"Subject"}: ${subject}. ${message}`;
-      $("btnWhatsApp").href = toWhatsAppLink(DATA.profile.whatsappNumber, waText);
-
-      showNotice(lang==="ar" ? "تم تجهيز الإيميل. إذا تبغى واتساب اضغط زر واتساب." : "Email prepared. Use WhatsApp button if needed.");
-      e.target.reset();
-    }
-
-    /***********************
-     * 6) CLIPBOARD
-     ***********************/
-    async function copyToClipboard(text, okMsg){
-      try{
-        await navigator.clipboard.writeText(text);
-        showNotice(okMsg, false);
-      }catch{
-        showNotice(lang==="ar" ? "تعذر النسخ." : "Copy failed.", true);
-      }
-    }
-
-    /***********************
-     * 7) PROJECT LOADER
-     ***********************/
-    async function loadProjects(){
-      try {
-        const res = await fetch('projects.json');
-        if(!res.ok) throw new Error('Failed to load projects.json');
-        const json = await res.json();
-        if(Array.isArray(json.projects)){
-          DATA.projects = json.projects;
-        } else {
-          console.warn('projects.json does not contain an array called "projects"');
-        }
-      } catch(err){
-        console.error(err);
-      }
-    }
-
-    /***********************
-     * 8) INIT + EVENTS
-     ***********************/
-    async function renderAll(){
-      setDirAndLang();
-      applyI18N();
-      fillProfileUI();
-      renderSkills();
-      renderToolbox();
-      renderCategoryFilter();
-      renderResume();
-      renderSocialAndServices();
+    function renderAll(){
+      renderShellText();
+      renderKPIs();
+      renderAbout();
+      renderCategories();
       renderProjects();
+      renderResume();
+      renderContact();
     }
 
-    window.addEventListener("DOMContentLoaded", async ()=>{
-      $("year").textContent = new Date().getFullYear();
-
-      $("btnLang").addEventListener("click", ()=>{
-        lang = (lang==="en") ? "ar" : "en";
-        renderAll();
-      });
-
-      $("categoryFilter").addEventListener("change", renderProjects);
-      $("searchInput").addEventListener("input", renderProjects);
-
-      $("modalClose").addEventListener("click", closeModal);
-      $("modalBackdrop").addEventListener("click", (e)=>{ if(e.target === $("modalBackdrop")) closeModal(); });
-      document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeModal(); });
-
-      $("btnCopyEmail").addEventListener("click", ()=> copyToClipboard(DATA.profile.email, lang==="ar"?"تم نسخ البريد":"Email copied"));
-      $("btnCopyPhone").addEventListener("click", ()=> copyToClipboard(DATA.profile.phone, lang==="ar"?"تم نسخ الجوال":"Phone copied"));
-
-      $("contactForm").addEventListener("submit", handleContactSubmit);
-
-      // Admin upload form listener
-      const uploadFormEl = $("uploadForm");
-      if(uploadFormEl) uploadFormEl.addEventListener("submit", handleUploadSubmit);
-
-      // initial WhatsApp link + footer
-      $("footerName").textContent = DATA.profile.fullName;
-
-      // mailto button
-      $("btnMailTo").href = `mailto:${DATA.profile.email}`;
-
-      // contact pill
-      $("contactPill").textContent = DATA.profile.email;
-
-      // Load projects from external JSON, then render everything
+    (async ()=>{
       await loadProjects();
       renderAll();
+    })();
+
+    $("lang-btn").addEventListener("click", ()=>{
+      currentLang = currentLang==="ar" ? "en" : "ar";
+      renderAll();
     });
+    $("category-filter").addEventListener("change", renderProjects);
+    $("search-input").addEventListener("input", renderProjects);
+    $("modal-close").addEventListener("click", closeProject);
+    $("modal-backdrop").addEventListener("click", (e)=>{ if(e.target.id==="modal-backdrop") closeProject(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeProject(); });
+    $("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
