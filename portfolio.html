@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raghdan Abdulhameed Bakhsh | Portfolio</title>
+  <meta name="description" content="Professional portfolio of Raghdan Abdulhameed Bakhsh, Architect and Project Management Engineer focused on industrial projects, consultancy, and design-led delivery." />
+  <style>
+    :root{--bg:#0c0f13;--bg-soft:#11161d;--panel:#151b24;--panel-2:#1a2230;--line:rgba(255,255,255,.08);--text:#f4f7fb;--muted:#a8b2c0;--accent:#c7a36a;--success:#8bd3a6;--shadow:0 20px 60px rgba(0,0,0,.26);--radius:24px;--max:1240px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at top right, rgba(199,163,106,.14), transparent 30%),linear-gradient(180deg,#090c10 0%,#0f141b 48%,#0d1116 100%);line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}a{color:inherit;text-decoration:none}.container{width:min(calc(100% - 32px), var(--max)); margin:0 auto}
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(9,12,16,.72);border-bottom:1px solid var(--line)}.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 0}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:13px}.brand-mark{width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg, rgba(199,163,106,.95), rgba(116,85,44,.98));display:grid;place-items:center;color:#111;font-weight:900;font-size:13px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}.nav-links{display:flex;gap:18px;flex-wrap:wrap;color:#d7dce4;font-size:14px}.nav-links a:hover{color:#fff}.nav-cta{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);font-weight:700;font-size:14px}
+    .hero{padding:72px 0 42px;border-bottom:1px solid var(--line)}.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:22px;align-items:stretch}.hero-copy,.hero-panel,.card,.project-card,.mini-card,.contact-card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.025));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.hero-copy{padding:34px}.hero-kicker{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.05);color:#dee3ea;font-size:12px;text-transform:uppercase;letter-spacing:.18em}h1{margin:18px 0 14px;font-size:clamp(40px, 6vw, 72px);line-height:1.02;letter-spacing:-.05em;max-width:860px}.hero-copy p{margin:0;color:#d0d6de;font-size:18px;max-width:760px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 18px;border-radius:999px;font-weight:800;font-size:14px;border:1px solid rgba(255,255,255,.13);transition:.2s ease}.btn:hover{transform:translateY(-1px)}.btn-primary{background:#fff;color:#11161c;border-color:#fff}.btn-secondary{background:rgba(255,255,255,.06)}
+    .hero-panel{padding:24px;display:grid;gap:14px}.hero-visual{min-height:360px;border-radius:20px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.08);background:linear-gradient(145deg, rgba(199,163,106,.24), transparent 40%),radial-gradient(circle at 80% 20%, rgba(139,211,166,.12), transparent 30%),linear-gradient(135deg,#1c2430 0%,#141b24 55%,#10151c 100%)}.blueprint{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),linear-gradient(0deg, rgba(199,163,106,.18), rgba(199,163,106,0));background-size:34px 34px,34px 34px,100% 100%;opacity:.8}.hero-visual::after{content:"Industrial Delivery / Design Coordination / Consultancy";position:absolute;left:24px;bottom:22px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#f2f5f8;padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(10,14,19,.62);backdrop-filter:blur(10px)}.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.stat{padding:16px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}.stat strong{display:block;font-size:22px;margin-bottom:6px}.stat span{display:block;color:var(--muted);font-size:14px}
+    section{padding:84px 0}.section-head{display:grid;grid-template-columns:.74fr .92fr;gap:20px;align-items:end;margin-bottom:28px}.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:900;margin-bottom:12px}.section-head h2{margin:0;font-size:clamp(30px, 4.5vw, 48px);line-height:1.08;letter-spacing:-.04em}.section-head p{margin:0;color:var(--muted)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{padding:28px}.card h3{margin:0 0 12px;font-size:22px}.card p{margin:0;color:var(--muted)}.pill-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.pill{padding:10px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:14px;color:#e4e9ef}
+    .projects-layout{display:grid;gap:18px}.project-card{overflow:hidden}.project-head{padding:22px 24px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;border-bottom:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015))}.project-head h3{margin:0 0 8px;font-size:28px;letter-spacing:-.03em;line-height:1.08}.project-head p{margin:0;color:var(--muted);max-width:780px}.meta-row{display:flex;flex-wrap:wrap;gap:10px}.chip{padding:8px 11px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#dfe5eb;font-size:12px;letter-spacing:.08em;text-transform:uppercase}.project-body{padding:24px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.mini-card{padding:18px;border-radius:18px}.mini-card h4{margin:0 0 8px;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}.mini-card p{margin:0;color:#dbe2e9;font-size:14px}.mini-card ul{margin:0;padding-left:18px;color:#dbe2e9;font-size:14px}.mini-card li+li{margin-top:6px}.outcome{margin:0 24px 24px;padding:16px 18px;border-radius:18px;border:1px solid rgba(139,211,166,.18);background:rgba(139,211,166,.06);color:#edf8f2;font-size:14px}
+    .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.skill-list{display:grid;gap:12px}.skill-row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px dashed rgba(255,255,255,.08)}.skill-row:last-child{border-bottom:0;padding-bottom:0}.skill-row span{color:var(--muted)}
+    .contact-grid{display:grid;grid-template-columns:1fr .92fr;gap:18px}.contact-card{padding:28px}.contact-card h3{margin:0 0 12px;font-size:24px}.contact-card p{margin:0;color:var(--muted)}.contact-list{display:grid;gap:12px;margin-top:18px}.contact-item{padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.03)}.contact-item strong{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}footer{padding:0 0 44px;color:var(--muted);text-align:center;font-size:13px}
+    @media (max-width:1100px){.hero-grid,.section-head,.contact-grid,.about-grid,.three-col,.project-body{grid-template-columns:1fr}} @media (max-width:720px){.nav-inner{align-items:flex-start;flex-direction:column}.nav-links{gap:14px}.hero{padding-top:42px}h1{font-size:clamp(34px,12vw,56px)}.hero-copy,.hero-panel,.project-head,.project-body,.contact-card,.card{padding:20px}.outcome{margin:0 20px 20px}.stat-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><div class="brand-mark">RB</div><div>Raghdan Bakhsh</div></div>
+      <div class="nav-links"><a href="#about">About</a><a href="#projects">Projects</a><a href="#consultancy">Consultancy</a><a href="#events">Events</a><a href="#skills">Skills</a><a href="#contact">Contact</a></div>
+      <a class="nav-cta" href="mailto:iraghdan@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="hero-kicker">Architect • Project Management Engineer • Industrial First</div>
+        <h1>Execution-driven architecture and project delivery across industrial, commercial, and consultancy work.</h1>
+        <p>Portfolio of Raghdan Abdulhameed Bakhsh, based in Jeddah, Saudi Arabia. Focused on facility upgrades, technical coordination, fit-out works, design development, and stakeholder alignment across procurement, finance, HSE, contractors, and management.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#projects">View Projects</a><a class="btn btn-secondary" href="mailto:iraghdan@gmail.com">Email</a><a class="btn btn-secondary" href="https://github.com/raghdanbakhsh-alt/portfolio-site" target="_blank" rel="noreferrer">GitHub</a></div>
+      </div>
+      <div class="hero-panel">
+        <div class="hero-visual"><div class="blueprint"></div></div>
+        <div class="stat-grid">
+          <div class="stat"><strong>Industrial</strong><span>Factory, warehouse, gate, facility, and internal upgrade works</span></div>
+          <div class="stat"><strong>Consultancy</strong><span>Commercial complexes, private villas, executive and high-end residential support</span></div>
+          <div class="stat"><strong>Coordination</strong><span>Cross-functional delivery with procurement, finance, HSE, contractors, and suppliers</span></div>
+          <div class="stat"><strong>KSA-Based</strong><span>Jeddah-led portfolio with works across Riyadh, Obhur, Makkah, and wider Saudi Arabia</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="kicker">Profile Summary</div><h2>Corporate, technical, and design-led delivery.</h2></div>
+        <p>Architect and Project Management Engineer with experience across industrial projects, design consultancy, site supervision, and commercial development. Strong in project coordination, design development, execution follow-up, technical documentation, and stakeholder alignment. Comfortable moving between concept work, contractor coordination, technical comparison, fit-out follow-up, and execution support inside live operating environments.</p>
+      </div>
+      <div class="about-grid">
+        <div class="card">
+          <h3>What defines the work</h3>
+          <p>Structured execution, practical design thinking, and clear communication between technical teams and business stakeholders. The portfolio combines built-environment judgment with delivery discipline, especially where scope must stay aligned with operations, approvals, safety, cost, and time constraints.</p>
+          <div class="pill-list"><span class="pill">Industrial Projects</span><span class="pill">Design Development</span><span class="pill">Technical Documentation</span><span class="pill">Fit-Out Coordination</span><span class="pill">Stakeholder Alignment</span><span class="pill">Execution Follow-Up</span></div>
+        </div>
+        <div class="card">
+          <h3>Experience anchors</h3>
+          <div class="skill-list">
+            <div class="skill-row"><strong>NBCC</strong><span>Project Management Engineer • 2025–Present</span></div>
+            <div class="skill-row"><strong>Salah Al-Zughaibi Group</strong><span>Architect & Consultant • 2024–Present</span></div>
+            <div class="skill-row"><strong>Qadeeb Al-Ban</strong><span>Architect & Site Supervisor • 2023–2024</span></div>
+            <div class="skill-row"><strong>Real Estate Development</strong><span>Architectural Development Support • 2022</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="kicker">Key Projects</div><h2>Industrial projects first.</h2></div>
+        <p>Selected works prioritized by operational and industrial relevance. Budget figures are not publicly disclosed, so projects are presented by scope, role, deliverables, stakeholders, risk handling, and outcome.</p>
+      </div>
+      <div class="projects-layout">
+        <article class="project-card">
+          <div class="project-head"><div><h3>NBCC Factory & Facility Development Works</h3><p>Industrial facility improvement, internal upgrade planning, layout development, branding integration, and project coordination within an operating manufacturing environment.</p></div><div class="meta-row"><span class="chip">Industrial</span><span class="chip">Jeddah</span><span class="chip">Budget Class: Confidential</span><span class="chip">Role: PM Engineer</span></div></div>
+          <div class="project-body">
+            <div class="mini-card"><h4>Scope</h4><p>Facility enhancement works across production-support and employee-service areas, including layout studies, internal planning, execution interfaces, and design-backed improvement initiatives.</p></div>
+            <div class="mini-card"><h4>Deliverables</h4><ul><li>Layout studies and concept packages</li><li>Technical coordination documents</li><li>Comparison sheets and project records</li><li>Contractor and execution follow-up</li></ul></div>
+            <div class="mini-card"><h4>Stakeholders</h4><p>Management, procurement, finance, HSE, contractors, suppliers, and internal facility users.</p></div>
+            <div class="mini-card"><h4>Risks handled</h4><p>Live-facility constraints, cross-functional approvals, scope alignment, execution continuity, and safety-related interfaces.</p></div>
+          </div>
+          <div class="outcome"><strong>Outcome:</strong> Supported structured delivery of multiple internal engineering and facility enhancement works while maintaining coordination across operational and corporate stakeholders.</div>
+        </article>
+        <article class="project-card">
+          <div class="project-head"><div><h3>Factory Gate 2, Office Improvements & Branding Works</h3><p>Gate design, façade branding, office planning, and executive-area enhancement tied to functional use, image quality, and internal circulation improvement.</p></div><div class="meta-row"><span class="chip">Industrial / Corporate</span><span class="chip">Jeddah</span><span class="chip">Budget Class: Not Disclosed</span><span class="chip">Role: PM Engineer / Architect</span></div></div>
+          <div class="project-body">
+            <div class="mini-card"><h4>Scope</h4><p>Upgrade of visible entry and administrative areas to strengthen identity, visitor impression, and internal functionality.</p></div>
+            <div class="mini-card"><h4>Deliverables</h4><ul><li>Architectural concepts and layout studies</li><li>Branding placement proposals</li><li>Coordination documents and design support</li></ul></div>
+            <div class="mini-card"><h4>Stakeholders</h4><p>Factory management, internal departments, contractors, and implementation teams.</p></div>
+            <div class="mini-card"><h4>Risks handled</h4><p>Alignment between image, operations, internal approvals, and site practicality during active facility use.</p></div>
+          </div>
+          <div class="outcome"><strong>Outcome:</strong> Improved visual identity and functional quality of key entry and administrative spaces while maintaining deliverability and coordination discipline.</div>
+        </article>
+        <article class="project-card">
+          <div class="project-head"><div><h3>Makkah Warehouse Cooling / HVAC Upgrade</h3><p>Warehouse cooling review and system-upgrade coordination with supplier evaluation, performance requirements, technical correspondence, and design-response iterations.</p></div><div class="meta-row"><span class="chip">Industrial</span><span class="chip">Warehouse / HVAC</span><span class="chip">Budget Class: Under Evaluation</span><span class="chip">Role: Project Coordinator</span></div></div>
+          <div class="project-body">
+            <div class="mini-card"><h4>Scope</h4><p>Assessment and upgrade path for warehouse cooling performance, including review of alternatives to maintain target internal conditions.</p></div>
+            <div class="mini-card"><h4>Deliverables</h4><ul><li>Technical follow-up and supplier coordination</li><li>Site evaluation input</li><li>Offer review and revision tracking</li><li>Requirement clarification for decision-making</li></ul></div>
+            <div class="mini-card"><h4>Stakeholders</h4><p>Supplier, internal departments, warehouse operations, and decision-makers reviewing performance and cost implications.</p></div>
+            <div class="mini-card"><h4>Risks handled</h4><p>Temperature-performance uncertainty, evolving requirements, solution comparison, and operational constraints within an active warehouse context.</p></div>
+          </div>
+          <div class="outcome"><strong>Outcome:</strong> Organized technical evaluation and negotiation track for a more performance-driven warehouse cooling solution.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="consultancy">
+    <div class="container">
+      <div class="section-head">
+        <div><div class="kicker">Selected Design & Consultancy Works</div><h2>Commercial, residential, and executive design support.</h2></div>
+        <p>Consultancy-led work emphasizing concept development, design review, visualization, client alignment, and presentation-quality outputs.</p>
+      </div>
+      <div class="projects-layout">
+        <article class="project-card"><div class="project-head"><div><h3>Princess Muna Commercial Complex – Riyadh</h3><p>Interior design, executive curtains, office branding, and conceptual visualization support for commercial and executive spaces.</p></div><div class="meta-row"><span class="chip">Consultancy</span><span class="chip">Riyadh</span><span class="chip">Role: Architect & Consultant</span></div></div><div class="project-body"><div class="mini-card"><h4>Deliverables</h4><ul><li>Interior concepts</li><li>3D visuals and presentations</li><li>Technical support for decision-making</li></ul></div><div class="mini-card"><h4>Stakeholders</h4><p>Client, consultants, project team, and decision-makers reviewing image, function, and execution practicality.</p></div></div><div class="outcome"><strong>Outcome:</strong> Delivered design-support material and visualization outputs to clarify direction and support approvals.</div></article>
+        <article class="project-card"><div class="project-head"><div><h3>Prince Abdullah Palace – Obhur</h3><p>High-end architectural and design consultancy support for premium residential development.</p></div><div class="meta-row"><span class="chip">High-End Residential</span><span class="chip">Obhur</span><span class="chip">Role: Architect & Consultant</span></div></div><div class="project-body"><div class="mini-card"><h4>Scope</h4><p>Design input, coordination support, and presentation-backed refinement for a premium private residence.</p></div><div class="mini-card"><h4>Risks handled</h4><p>Expectation management, presentation quality, design consistency, and coordination across high-end residential requirements.</p></div></div><div class="outcome"><strong>Outcome:</strong> Supported development of a premium residential design direction with executive-level presentation value.</div></article>
+        <article class="project-card"><div class="project-head"><div><h3>Shams Riyadh Mixed-Use Studies</h3><p>3D massing, planning studies, circulation review, parking analysis, accessibility, and zoning support for mixed-use development plots.</p></div><div class="meta-row"><span class="chip">Mixed-Use</span><span class="chip">Riyadh</span><span class="chip">Role: Design Consultant</span></div></div><div class="project-body"><div class="mini-card"><h4>Deliverables</h4><ul><li>3D massing for plots 7–16</li><li>Top-view rendered studies</li><li>Mall parking layout</li><li>Circulation and zoning analysis</li></ul></div><div class="mini-card"><h4>Outcome</h4><p>Produced clear planning and visualization studies to support development review and design-direction discussion.</p></div></div></article>
+        <article class="project-card"><div class="project-head"><div><h3>Private Villas & Residential Design Packages</h3><p>Residential architectural design, concept development, visualization, and client-focused coordination across private villa projects.</p></div><div class="meta-row"><span class="chip">Residential</span><span class="chip">Private Clients</span><span class="chip">Role: Architect / Consultant</span></div></div><div class="project-body"><div class="mini-card"><h4>Deliverables</h4><p>Design concepts, space layouts, 3D studies, and presentation material aligned with client requirements.</p></div><div class="mini-card"><h4>Stakeholders</h4><p>Private clients, consultants, and implementation parties requiring tailored residential design outputs.</p></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="events">
+    <div class="container">
+      <div class="section-head"><div><div class="kicker">Event & Temporary Developments</div><h2>Experience-driven concepts and temporary environments.</h2></div><p>Creative and commercial work shaped around visitor experience, sponsor value, temporary installation planning, and presentation-led concept packaging.</p></div>
+      <div class="three-col">
+        <div class="card"><h3>Promenade / Seasonal Development Concepts</h3><p>Concept-led work for seasonal activations, zones, sponsor-facing material, and visitor-experience planning with emphasis on visual identity, presentation readiness, and commercial appeal.</p></div>
+        <div class="card"><h3>Temporary Installations & Branded Zones</h3><p>Support for branded spaces, façade overlays, wayfinding concepts, and temporary environments where speed, clarity, and coordination are essential.</p></div>
+        <div class="card"><h3>Pitch-Ready Design Packaging</h3><p>Translation of creative ideas into presentable concepts that can be shown to management, sponsors, or clients with a clearer link between image, scope, and execution practicality.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="section-head"><div><div class="kicker">Technical Skills</div><h2>Tools, software, and professional credentials.</h2></div><p>Capability set built around design, documentation, coordination, presentation, and execution support.</p></div>
+      <div class="three-col">
+        <div class="card"><h3>Technical Skills</h3><div class="pill-list"><span class="pill">Project Coordination</span><span class="pill">Architectural Design</span><span class="pill">Site Supervision</span><span class="pill">Space Planning</span><span class="pill">Technical Documentation</span><span class="pill">BOQ Review</span><span class="pill">Contractor Coordination</span><span class="pill">Stakeholder Management</span><span class="pill">Procurement Alignment</span><span class="pill">HSE Coordination</span><span class="pill">Presentation Development</span></div></div>
+        <div class="card"><h3>Software</h3><div class="skill-list"><div class="skill-row"><strong>AutoCAD</strong><span>Production drawings and detailing</span></div><div class="skill-row"><strong>Revit</strong><span>Model-based architectural work</span></div><div class="skill-row"><strong>SketchUp</strong><span>Concept modeling and quick studies</span></div><div class="skill-row"><strong>Twinmotion</strong><span>Visualization and presentation output</span></div><div class="skill-row"><strong>Photoshop</strong><span>Presentation enhancement</span></div><div class="skill-row"><strong>Excel / PowerPoint / SAP</strong><span>Commercial review, documentation, and internal coordination</span></div></div></div>
+        <div class="card"><h3>Certifications</h3><div class="skill-list"><div class="skill-row"><strong>Saudi Council of Engineers</strong><span>Active membership</span></div><div class="skill-row"><strong>PMI-CAPM Training Certificate</strong><span>King AbdulAziz University – Applied College • 25 Hours</span></div><div class="skill-row"><strong>Elements of AI</strong><span>MinnaLearn / Google.org / University of Helsinki</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-head"><div><div class="kicker">Contact</div><h2>Available for opportunities, consultancy, and project discussions.</h2></div><p>This site is configured for the intended custom domain <strong>danline-sa.com</strong>. Final GitHub Pages publishing requires Pages to be enabled on the repository.</p></div>
+      <div class="contact-grid">
+        <div class="contact-card"><h3>Direct contact</h3><p>For employer outreach, consultancy inquiries, or collaboration opportunities, the fastest route is email.</p><div class="contact-list"><div class="contact-item"><strong>Email</strong><a href="mailto:iraghdan@gmail.com">iraghdan@gmail.com</a></div><div class="contact-item"><strong>GitHub</strong><a href="https://github.com/raghdanbakhsh-alt" target="_blank" rel="noreferrer">github.com/raghdanbakhsh-alt</a></div><div class="contact-item"><strong>Location</strong>Jeddah, Saudi Arabia</div></div></div>
+        <div class="contact-card"><h3>Notes on completeness</h3><p>This portfolio is intentionally conservative where data is not confirmed. Budget figures, confidential client-sensitive metrics, and undisclosed commercial values are not invented. If more verified project numbers, logos, final photos, or links are provided, the site can be upgraded into a fuller project archive.</p><div class="hero-actions" style="margin-top:22px"><a class="btn btn-primary" href="mailto:iraghdan@gmail.com">Start a Conversation</a><a class="btn btn-secondary" href="https://github.com/raghdanbakhsh-alt/portfolio-site" target="_blank" rel="noreferrer">Open Repository</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="container">© 2026 Raghdan Abdulhameed Bakhsh • Professional Portfolio • Prepared for GitHub-based publishing</div></footer>
+</body>
+</html>
