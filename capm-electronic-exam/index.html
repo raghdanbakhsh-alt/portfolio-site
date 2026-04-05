@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAPM Electronic Exam</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --panel: #121933;
+    --panel-2: #182142;
+    --text: #eef3ff;
+    --muted: #aab7d4;
+    --accent: #67b7ff;
+    --good: #35c26b;
+    --bad: #ff6b6b;
+    --warn: #f0b84b;
+    --border: rgba(255,255,255,0.10);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(180deg, #0b1020 0%, #121933 100%);
+    color: var(--text);
+  }
+  .app {
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    min-height: 100vh;
+  }
+  .sidebar {
+    border-left: 1px solid var(--border);
+    background: rgba(10, 14, 28, 0.55);
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: auto;
+    backdrop-filter: blur(12px);
+  }
+  .brand {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+  .stat-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .toolbar select, .toolbar button {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .nav-btn {
+    padding: 10px 0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--panel-2);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .nav-btn.active { outline: 2px solid var(--accent); }
+  .nav-btn.answered { background: rgba(53,194,107,0.16); border-color: rgba(53,194,107,0.45); }
+  .nav-btn.flagged { background: rgba(240,184,75,0.18); border-color: rgba(240,184,75,0.5); }
+  .main {
+    padding: 28px;
+  }
+  .card {
+    max-width: 980px;
+    margin: 0 auto;
+    background: rgba(18, 25, 51, 0.78);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 26px;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.25);
+  }
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(103,183,255,0.15);
+    color: #dfefff;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    border: 1px solid rgba(103,183,255,0.35);
+  }
+  .q-meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .question-text {
+    font-size: 26px;
+    line-height: 1.65;
+    margin: 18px 0 24px;
+    white-space: pre-wrap;
+  }
+  .option-list {
+    display: grid;
+    gap: 14px;
+  }
+  .option {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--panel);
+    padding: 16px;
+    cursor: pointer;
+    transition: 0.18s ease;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .option:hover { transform: translateY(-1px); border-color: rgba(103,183,255,0.45); }
+  .option input { margin-top: 4px; }
+  .option.selected { border-color: rgba(103,183,255,0.7); background: rgba(103,183,255,0.12); }
+  .option.correct { border-color: rgba(53,194,107,0.75); background: rgba(53,194,107,0.13); }
+  .option.wrong { border-color: rgba(255,107,107,0.75); background: rgba(255,107,107,0.12); }
+  .option-label {
+    font-weight: 700;
+    min-width: 24px;
+  }
+  .option-text {
+    line-height: 1.75;
+    white-space: pre-wrap;
+  }
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+  }
+  .actions-left, .actions-right {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .btn.primary { background: var(--accent); color: #08101d; border: none; font-weight: 700; }
+  .btn.good { background: var(--good); color: white; border: none; font-weight: 700; }
+  .btn.warn { background: var(--warn); color: #151515; border: none; font-weight: 700; }
+  .answer-panel {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 1px dashed var(--border);
+    color: var(--muted);
+    line-height: 1.7;
+    background: rgba(255,255,255,0.03);
+  }
+  .answer-panel strong { color: var(--text); }
+  .results {
+    display: none;
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(103,183,255,0.1);
+    border: 1px solid rgba(103,183,255,0.35);
+  }
+  .results.visible { display: block; }
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .results .stat-box { margin-bottom: 0; }
+  .muted {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .note {
+    margin-top: 10px;
+    color: #ffd98b;
+    font-size: 13px;
+  }
+  @media (max-width: 900px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar {
+      position: relative;
+      height: auto;
+      border-left: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 16px; }
+    .question-text { font-size: 20px; }
+    .results-grid { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">اختبار CAPM الإلكتروني</div>
+    <div class="sub">نسخة تدريبية مبنية على بنك الأسئلة المراجع. كل الأسئلة بالإنجليزية مع إدارة درجات وتصفية حسب النموذج.</div>
+
+    <div class="toolbar">
+      <select id="formFilter">
+        <option value="all">كل النماذج</option>
+        <option value="1">Form 1</option>
+        <option value="2">Form 2</option>
+        <option value="3">Form 3</option>
+        <option value="4">Form 4</option>
+        <option value="5">Form 5</option>
+        <option value="6">Form 6</option>
+      </select>
+      <button id="shuffleBtn">ترتيب عشوائي</button>
+    </div>
+
+    <div class="stat-box">
+      <div class="stat-label">عدد الأسئلة المعروضة</div>
+      <div class="stat-value" id="totalQuestions">0</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">الأسئلة المحتسبة</div>
+      <div class="stat-value" id="gradableQuestions">0</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">الأسئلة المجاب عنها</div>
+      <div class="stat-value" id="answeredCount">0</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">النموذج الحالي</div>
+      <div class="stat-value" id="activeFormStat">الكل</div>
+    </div>
+
+    <div class="muted">الترقيم في الأسفل يسمح بالقفز السريع. اللون الأصفر يعني سؤال عليه ملاحظة مصدر.</div>
+    <div class="nav-grid" id="navGrid"></div>
+  </aside>
+
+  <main class="main">
+    <div class="card">
+      <div class="header-row">
+        <div>
+          <div class="badge" id="questionBadge">Form 1 • Question 1</div>
+          <div class="q-meta" id="questionMeta">Single-choice</div>
+        </div>
+        <div class="muted" id="progressText"></div>
+      </div>
+
+      <div class="question-text" id="questionText"></div>
+      <div class="option-list" id="optionList"></div>
+      <div class="note" id="sourceNote"></div>
+      <div class="answer-panel" id="reviewDetails"></div>
+
+      <div class="results" id="resultsCard">
+        <strong>النتيجة النهائية</strong>
+        <div class="results-grid">
+          <div class="stat-box"><div class="stat-label">الدرجة</div><div class="stat-value" id="scoreValue">0</div></div>
+          <div class="stat-box"><div class="stat-label">النسبة</div><div class="stat-value" id="percentValue">0%</div></div>
+          <div class="stat-box"><div class="stat-label">صحيح</div><div class="stat-value" id="correctValue">0</div></div>
+          <div class="stat-box"><div class="stat-label">خطأ</div><div class="stat-value" id="wrongValue">0</div></div>
+        </div>
+      </div>
+
+      <div class="footer-row">
+        <div class="actions-left">
+          <button class="btn" id="prevBtn">السابق</button>
+          <button class="btn" id="nextBtn">التالي</button>
+        </div>
+        <div class="actions-right">
+          <button class="btn warn" id="resetBtn">إعادة المحاولة</button>
+          <button class="btn good" id="submitBtn">إنهاء وتصحيح</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const QUESTION_BANK = [];
+</script>
+</body>
+</html>
